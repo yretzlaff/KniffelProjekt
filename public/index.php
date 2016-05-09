@@ -31,9 +31,4 @@ if (Session::authenticated()) {
 
 TODO:
 
-* store enrycpted versions of password
-
-* read and display albums from database
-* add an ORM-class for albums
-* create input mask for adding an album to the database
 */
