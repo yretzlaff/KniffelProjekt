@@ -5,6 +5,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`)
 );
 
+
+CREATE TABLE IF NOT EXISTS `spiele` (
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
+  `beendet` BOOLEAN,
+  `Startdatum` DATE,
+  `Derzeitiger_Spieler` int(11),
+  PRIMARY KEY (`s_id`)
+);
+
 CREATE TABLE IF NOT EXISTS `spielkarte` (
   `sk_id` int(11) NOT NULL AUTO_INCREMENT,
   `u_id` int(11) NOT NULL,
@@ -27,12 +36,4 @@ CREATE TABLE IF NOT EXISTS `spielkarte` (
   PRIMARY KEY (`sk_id`),
   FOREIGN KEY (u_Id) REFERENCES user(id),
   FOREIGN KEY (s_Id) REFERENCES spiele(s_id)
-);
-
-CREATE TABLE IF NOT EXISTS `spiele` (
-  `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `beendet` BOOLEAN,
-  `Startdatum` DATE,
-  `Derzeitiger_Spieler` int(11),
-  PRIMARY KEY (`s_id`)
 );
