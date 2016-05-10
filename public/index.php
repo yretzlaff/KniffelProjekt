@@ -1,31 +1,51 @@
 <?php
 
-require_once '../config.php';
+	require_once '../config.php';
 
-// initialize variables
-$template_data = array();
+	// initialize variables
+	$template_data = array();
+	$anzahlSpieler = 0;
 
-// handle login
-if (isset($_REQUEST['add_user'])) {
-    Session::create_user($_REQUEST['username'], $_REQUEST['password']);
-} else if (isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
-    if (!Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
-        $template_data['message'] = 'Login failed!';
+	Template::render('newGame', $template_data);
+	
+	if (isset($_POST[neues_spiel]))
+	{
+		Template::render('newGame', $template_data);
+	}
+	else
+	if (isset($_POST[spiel_fortsetzen])){
+		$template_data['benutzer'] = Spiel::getBenutzerZuSpiel();
+		Template::render('continueGameLogin', $template_data);
+	}
+
+
+    if (isset($_POST[weiterer_spieler])){
+		if (anzahlSpieler < 4)
+		{
+			if (isset($_REQUEST['add_user']))
+			{
+				Session::create_user($_REQUEST['username'],$_REQUEST['password']);
+			}
+			$anzahlSpieler = $anzahlSpieler + 1;
+			Template::render('newGame', $template_data);
+		}
+		else
+		{
+			//fehlermeldung
+		}
+	}
+    else
+
+    if (isset($_POST[spiel_starten])){
+		$anzahlSpieler = 0;
+        Template::render('continueGameLogin', $template_data);
     }
-}
-
-
-if (isset($_REQUEST['logout'])) {
-    Session::logout();
-}
-
-if (Session::authenticated()) {
-   /** $template_data['albums'] = Album::getAll();
-    Template::render('list', $template_data); **/
-} else {
-    $template_data['title'] = 'Login';
-    Template::render('login', $template_data);
-}
+	else
+		
+	if (isset($_POST[abbrechen])){
+		$anzahlSpieler = 0;
+		Template::render('start', $template_data);
+	}
 
 /*
 
