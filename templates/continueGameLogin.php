@@ -2,7 +2,7 @@
 	   <label for="username">
        Login:
    </label>
-   <label id="username" name="username" > <?= $benutzer['username'] ?></label>
+   <label id="username" name="username" > <?= $benutzer[0]['username'] ?></label>
 
    <label for="password">
        Passwort:

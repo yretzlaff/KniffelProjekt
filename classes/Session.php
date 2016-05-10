@@ -56,21 +56,19 @@ class Session {
         ));
 
         if ($stmt->fetchColumn() == 0) {         // user does not yet exists, create it
-            $stmt2 = $dbh->prepare("INSERT INTO user (username, password)
-                VALUES (:user, :password)");
+            			
+				$hash =  password_hash($password, PASSWORD_DEFAULT);
+				Benutzer::createUser(array(
+					'username' 	=> $user,
+					'passwort'  => $hash
+				));
+			
 
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-
-            $stmt2->execute(array(
-                'user'     => $user,
-                'password' => $hash
-            ));
-
-            $_SESSION['logged_in'] = true;
+         /**   $_SESSION['logged_in'] = true;
             $_SESSION['user'] = $user;
 
             // create new session_id
-            session_regenerate_id(true);
+            session_regenerate_id(true);**/
         } else {
             throw new Exception('user already exists!');
         }
