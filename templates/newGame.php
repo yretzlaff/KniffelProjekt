@@ -15,7 +15,7 @@
    <input type="checkbox" name="add_user" value="1">
 
    
-   <input type="submit" name="naechster_spieler" value="naechster_spieler">
+   <input type="submit" name="weiterer_spieler" value="weiterer_spieler">
    
 
    <input type="submit" name="spiel_starten" value="spiel_starten">
