@@ -73,4 +73,9 @@ class Session {
     {
         $_SESSION['gestartet'] = true;
     }
+
+    public static function authenticated()
+    {
+        return ($_SESSION['logged_in'] === true);
+    }
 }

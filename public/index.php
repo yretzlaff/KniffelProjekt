@@ -93,7 +93,7 @@
 		Template::render('start', $template_data);
 	}
 	
-	if (!SESSION::gestartet())
+	if (!SESSION::gestartet() || empty($_POST))
 	{
 		$_SESSION['anzahlSpieler'] = 0;
 		Template::render('start', $template_data);
