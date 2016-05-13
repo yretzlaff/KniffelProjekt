@@ -2,6 +2,8 @@
 
 class Spiel
 {
+	
+	
     public static function getBenutzerZuSpiel()
     {
         global $dbh;
@@ -12,6 +14,7 @@ class Spiel
 		
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+	
 
 
 }

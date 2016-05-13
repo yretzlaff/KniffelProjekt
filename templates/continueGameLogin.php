@@ -10,7 +10,9 @@
    <input id="password" type="password" name="password" placeholder="Passwort">
 
    
-   <input type="submit" name="naechster_spieler" value="naechster_spieler">
+   <input type="submit" name="naechster_spieler" value="Nächster Spieler">
+   <input type="submit" name="spiel_fortsetzen2" value="Spiel fortsetzen">
+   <input type="submit" name="hauptmenue2" value="Hauptmenü">
    
 
 </form>

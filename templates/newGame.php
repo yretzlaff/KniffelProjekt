@@ -15,12 +15,12 @@
    <input type="checkbox" name="add_user" value="1">
 
    
-   <input type="submit" name="weiterer_spieler" value="weiterer_spieler">
+   <input type="submit" name="weiterer_spieler" value="Weiterer Spieler">
    
 
-   <input type="submit" name="spiel_starten" value="spiel_starten">
+   <input type="submit" name="spiel_starten" value="Spiel Starten">
    
-   <input type="submit" name="abbrechen" value="abbrechen">
+   <input type="submit" name="abbrechen" value="Abbrechen">
 </form>
 
 

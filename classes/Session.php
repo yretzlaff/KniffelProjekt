@@ -3,33 +3,33 @@
 class Session {
     public static function check_credentials($user, $password)
     {
-        global $dbh;
+		$stmt = Benutzer::usernameVorhanden($user);
+		
+		if ($stmt == 0)
+		{
+			throw new Exception('Benutzer nicht vorhanden. Überprüfen Sie den Nutzernamen oder erstellen Sie einen neuen Nutzer!');
+		}
+		else
+		{
+			$password = Benutzer::getNutzerdaten($user);
 
-        $stmt = $dbh->prepare("SELECT password FROM user
-            WHERE username = :user");
+			$hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt->execute(array(
-            'user'     => $user,
-        ));
+			if (password_verify($password, $hash)) {
+				$_SESSION['logged_in'] = true;
+				$_SESSION['user'] = $user;
 
-        $hash = $stmt->fetchColumn();
 
-        if (password_verify($password, $hash)) {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user'] = $user;
 
-            // create new session_id
-            session_regenerate_id(true);
-
-            return true;
-        }
-
-        return false;
+				return true;
+			}
+		}
+		return false;
     }
 
-    public static function authenticated()
+    public static function gestartet()
     {
-        return ($_SESSION['logged_in'] === true);
+        return ($_SESSION['gestartet'] === true);
     }
 
     public static function logout()
@@ -46,16 +46,11 @@ class Session {
 
     public function create_user($user, $password)
     {
-        global $dbh;
 
-        $stmt = $dbh->prepare("SELECT COUNT(*) FROM user
-            WHERE username = :user");
+        $stmt = Benutzer::usernameVorhanden($user);
 
-        $stmt->execute(array(
-            'user'     => $user
-        ));
 
-        if ($stmt->fetchColumn() == 0) {         // user does not yet exists, create it
+        if ($stmt == 0) {         // user does not yet exists, create it
             			
 				$hash =  password_hash($password, PASSWORD_DEFAULT);
 				Benutzer::createUser(array(
@@ -70,7 +65,12 @@ class Session {
             // create new session_id
             session_regenerate_id(true);**/
         } else {
-            throw new Exception('user already exists!');
+            throw new Exception('Benutzername bereits vorhanden. Bitte wählen Sie einen anderen!');
         }
+    }
+	
+	    public static function starten()
+    {
+        $_SESSION['gestartet'] = true;
     }
 }
