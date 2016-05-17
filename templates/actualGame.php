@@ -4,11 +4,10 @@
 <table> 
 	<tr> 
 		<th><!-- Spalte für Bezeichnungen --></th>
-		<th><!-- Spalte für Knöpfe --></th> 
-		<th></th> <!-- Spalte für Spieler 1 -->
-		<th></th> <!-- Spalte für Spieler 2 -->
-		<th></th> <!-- Spalte für Spieler 3 -->
-		<th></th> <!-- Spalte für Spieler 4 -->
+		<th><!-- Spalte für Knöpfe --></th>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
+		<th> <? print($test->getName()) ?></th> <!-- Spalte für Spieler 1 -->
+		<? endforeach; ?>
 	</tr> 
 	<tr> 
 		<th>Einer</th>

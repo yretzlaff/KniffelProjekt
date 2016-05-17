@@ -63,4 +63,23 @@ class Benutzer
 		
     }
 
+	public static function getIdZuNamen($username)
+	{
+
+		global $dbh;
+
+		$stmt = $dbh->prepare("SELECT id FROM user WHERE username = :username");
+
+		$user = array
+		(
+			username => $username
+		);
+
+		$stmt->execute($user);
+
+		return $stmt->fetchColumn();
+
+
+	}
+
 }

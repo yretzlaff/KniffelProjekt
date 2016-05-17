@@ -10,11 +10,13 @@ class Spieler
 {
     private $name;
     private $spielkarte;
+    private $id;
 
-    public function __construct($name)
+    public function __construct($id, $name)
     {
         require_once("Spielkarte.php");
         $this->name = $name;
+        $this->id = $id;
         $this->spielkarte = new Spielkarte();
     }
 
@@ -49,6 +51,17 @@ class Spieler
     {
         $this->spielkarte = $spielkarte;
     }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    
 
 
 }

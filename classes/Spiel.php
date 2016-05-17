@@ -6,7 +6,7 @@ class Spiel
     const MAXANZAHLRUNDEN = 13;
 
     //Liste der Spieler mit ihren Spielkarten
-    private $spieler;
+    private $spieler = array();
 
     //Würfelspiel um einen Würfelvorgang zu simulieren
     private $wuerfelspiel;
@@ -24,14 +24,7 @@ class Spiel
         require_once("Spieler.php");
         require_once("WuerfelSpiel.php");
         require_once("Punkterechner.php");
-
-        //Fülle das Spieler-Array testweise mit 4 Spielern
-        $this->spieler = array(
-            1 => new Spieler("Anna"),
-            2 => new Spieler("Bert"),
-            3 => new Spieler("Claudia"),
-            4 => new Spieler("Dieter"),
-        );
+        
 
         //Erzeuge neues Würfelspiel
         $this->wuerfelspiel = new WuerfelSpiel();
@@ -71,6 +64,19 @@ class Spiel
     public function spielBeenden()
     {
 
+    }
+
+    /*
+     * Methode um neue Spieler hinzuzufügen
+     */
+    public function hinzufuegenSpieler($neuerspieler)
+    {
+        $this->spieler[count($this->spieler) + 1] = $neuerspieler;
+    }
+
+    public function getSpieler()
+    {
+        return $this->spieler;
     }
 
     /*
@@ -118,8 +124,10 @@ class Spiel
 
 }
 
-/*
+/**
  * Funktionstest
- */
+ 
 $spiel = new Spiel();
 $spiel->spielen();
+
+**/

@@ -2,16 +2,20 @@
 
 	require_once '../config.php';
 
+	$spiel = new Spiel();
 	// initialize variables
 	$template_data = array();
+	$template_data['Spiel'] = $spiel;
 	
 	//Verzweigung auf der Startseite mit den Buttons Neues Spiel und Spiel fortsetzen
+	//start -> "Neues Spiel" Button
 	if (isset($_POST[newGame]))
 	{
 		SESSION::starten();
 		Template::render('newGame', $template_data);
 	}
 	else
+		//start -> "Spiel fortsetzen" Button	
 	if (isset($_POST[continueGame])){
 		SESSION::starten();
 		$template_data['filter'] = Spiel::getSpielListe();
@@ -21,6 +25,7 @@
 
 
 	//Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
+	//neues Spiel -> "Weiterer Spieler" Button
     if (isset($_POST[weiterer_spieler])){
 		if ($_SESSION['anzahlSpieler'] < 4)
 		{
@@ -28,6 +33,8 @@
 			{
 				Session::create_user($_REQUEST['username'],$_REQUEST['password']);
 				$_SESSION['anzahlSpieler']++; 
+				$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
+				$spiel->hinzufuegenSpieler($spieler);
 				Template::render('newGame', $template_data);
 			}
 			else
@@ -35,6 +42,8 @@
 				if (Session::check_credentials($_REQUEST['username'],$_REQUEST['password']))
 				{
 					$_SESSION['anzahlSpieler']++;
+					$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
+					$spiel->hinzufuegenSpieler($spieler);
 					Template::render('newGame', $template_data);
 				}
 				else
@@ -49,18 +58,23 @@
 		}
 	}
     else
-
+		
+	// neues Spiel -> "Spiel starten" Button	
     if (isset($_POST[spiel_starten])){
+		$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
+		$spiel->hinzufuegenSpieler($spieler);
         Template::render('actualGame', $template_data);
     }
 	else
 		
+	// neues Spiel -> "Abbrechen" Button	
 	if (isset($_POST[abbrechen])){
 		$_SESSION['anzahlSpieler'] = 0;
 		Template::render('start', $template_data);
 	}
 	
 	//Verzweigung auf der continueGameFilter Seite mit den Buttons Spiel fortsetzen und Hauptmenü
+	//continue Game Filter -> "Spiel fortsetzen" Button
 	if (isset($_POST[spiel_fortsetzen]))
 	{
 		$template_data['benutzer'] = Spiel::getBenutzerZuSpiel();
