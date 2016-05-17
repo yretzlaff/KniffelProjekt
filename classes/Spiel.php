@@ -94,16 +94,28 @@ class Spiel
     }
 
 
-    public static function getBenutzerZuSpiel()
+    public static function getBenutzerZuSpiel($spiel)
     {
         global $dbh;
 
-        $stmt = $dbh->prepare("SELECT username FROM user, spiele, spielkarte WHERE user.id=u_id AND spielkarte.s_id = spiele.s_id AND beendet is null ");
+        $stmt = $dbh->prepare("SELECT username FROM user, spiele, spielkarte WHERE user.id=u_id AND spielkarte.s_id = spiele.s_id AND beendet is null AND spiele.s_id = :spiel ");
+
+        $stmt->execute(array(':spiel' => $spiel));
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getSpielListe()
+    {
+        global $dbh;
+
+        $stmt = $dbh->prepare("SELECT spiele.s_id, Startdatum, COUNT(sk_id) AS anz FROM `spiele` LEFT JOIN `spielkarte` ON spiele.s_id = spielkarte.s_id WHERE spiele.beendet IS NULL");
 
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 }
 
 /*

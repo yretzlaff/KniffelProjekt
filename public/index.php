@@ -14,7 +14,9 @@
 	else
 	if (isset($_POST[continueGame])){
 		SESSION::starten();
+		$template_data['filter'] = Spiel::getSpielListe();
 		Template::render('continueGameFilter', $template_data);
+		
 	}
 
 

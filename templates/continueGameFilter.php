@@ -15,7 +15,50 @@
 </div>
 	
 <div style="border : double 2px #0000ff; background : #ffffff; color : #000000; width : 80%; height : 60%; overflow : auto; margin-left : 10%;">
-	<!-- Liste mit den begonnenen Spielen -->    
+	<!-- Liste mit den begonnenen Spielen -->
+	<table class="album">
+		<colgroup>
+			<col style="width: 20px;">
+			<col style="width: 30%">
+			<col style="width: 30%">
+			<col style="width: 30%">
+			<col>
+		</colgroup>
+		<thead>
+		<tr>
+			<td>Spiel ID</td>
+			<td>Datum</td>
+			<td>Anzahl Spieler</td>
+			<td>Spieler 1</td>
+			<td>Spieler 2</td>
+			<td>Spieler 3</td>
+			<td>Spieler 4</td>
+			<td></td>
+		</tr>
+		</thead>
+
+		<tbody>
+		<? if (!empty($filter)) foreach ($filter as $filter) : ?>
+			<tr>
+				<td>#<?= $filter['s_id'] ?></td>
+				<td><?= h($filter['Startdatum']) ?></td>
+				<td><?= h($filter['anz']) ?></td>
+				<? $spieler = Spiel::getBenutzerZuSpiel($filter['s_id']) ?>
+				<td><?= h($spieler[0]['username']) ?></td>
+				<td><?= h($spieler[1]['username']) ?></td>
+				<td><?= h($spieler[2]['username']) ?></td>
+				<td><?= h($spieler[3]['username']) ?></td>
+				<td><a href="?action=delete_album&id=<?= $album['ID'] ?>">Löschen</a></td>
+			</tr>
+		<? endforeach ?>
+		</tbody>
+
+		<tfoot>
+		<tr>
+			<td colspan="5">All rights reserved</td>
+		</tr>
+		</tfoot>
+	</table>
 	
 </div> 
 
