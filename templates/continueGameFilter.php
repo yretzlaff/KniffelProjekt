@@ -39,7 +39,8 @@
 		<tbody>
 		<? if (!empty($filter)) foreach ($filter as $filter) : ?>
 			<tr>
-				<td>#<?= $filter['s_id'] ?></td>
+				<td><input type="radio" name="werte" value="1"></td>
+				<td><?= $filter['s_id'] ?></td>
 				<td><?= h($filter['Startdatum']) ?></td>
 				<td><?= h($filter['anz']) ?></td>
 				<? $spieler = Spiel::getBenutzerZuSpiel($filter['s_id']) ?>

@@ -67,7 +67,7 @@ class Benutzer
 	{
 
 		global $dbh;
-
+		
 		$stmt = $dbh->prepare("SELECT id FROM user WHERE username = :username");
 
 		$user = array
@@ -82,14 +82,52 @@ class Benutzer
 
 	}
 	
-	    public static function changeUsernamer($username)
+	public static function changeUsername($id, $username)
     {
         global $dbh;
 		
-		$stmt = $dbh->prepare("INSERT INTO user(username, password) VALUES (:username,:passwort) ");
+		$stmt = $dbh->prepare("UPDATE user SET username = :username WHERE id = :id");
 		
-		$stmt->execute($nutzerdaten);
+		$user = array
+		(
+			username 	=> $username,
+			id			=> $id
+
+		);
+		
+		$stmt->execute($user);
 		
     }
 
+	public static function changePassword($id, $hash)
+    {
+        global $dbh;
+		
+		$stmt = $dbh->prepare("UPDATE user SET password = :hashPasswort WHERE id = :id");
+		
+		$user = array
+		(
+			hashPasswort	=> $hash,
+			id				=> $id
+
+		);
+		
+		$stmt->execute($user);
+		
+    }	
+
+	public static function deleteAccount($id)
+    {
+        global $dbh;
+		
+		$stmt = $dbh->prepare("DELETE FROM user WHERE id = :id");
+		
+		$user = array
+		(
+			id				=> $id
+		);
+		
+		$stmt->execute($user);
+		
+    }		
 }

@@ -1,138 +1,138 @@
 <form action="index.php" method="post" class="actualGame">
-<h3 align="right">Spieler am Zug: <? print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
+<h3 align="right">Spieler am Zug: <?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
 
 <table> 
 	<tr> 
 		<th><!-- Spalte für Bezeichnungen --></th>
 		<th><!-- Spalte für Knöpfe --></th>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-		<th> <? print($test->getName()) ?></th> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+		<th> <?= ($test->getName()); ?></th> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr> 
 	<tr> 
 		<th>Einer</th>
-		<td><input type="submit" name="einer" value="<?print Punkterechner::getEinerPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>" <?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetEiner())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getEiner()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="einer" value="<?= Punkterechner::getEinerPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>" <?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetEiner())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getEiner()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 		
 	</tr> 
 	<tr> 
 		<th>Zweier</th>
-		<td><input type="submit" name="zweier" value="<?print Punkterechner::getZweierPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetZweier())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getZweier()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="zweier" value="<?= Punkterechner::getZweierPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetZweier())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getZweier()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Dreier</th>
-		<td><input type="submit" name="dreier" value="<?print Punkterechner::getDreierPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetDreier())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getDreier()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="dreier" value="<?= Punkterechner::getDreierPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetDreier())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getDreier()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Vierer</th> 
-		<td><input type="submit" name="vierer" value="<?print Punkterechner::getViererPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetVierer())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getVierer()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="vierer" value="<?= Punkterechner::getViererPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetVierer())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getVierer()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Fünfer</th> 
-		<td><input type="submit" name="fuenfer" value="<?print Punkterechner::getFuenferPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetFuenfer())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getFuenfer()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="fuenfer" value="<?= Punkterechner::getFuenferPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetFuenfer())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getFuenfer()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Sechser</th>
-		<td><input type="submit" name="sechser" value="<?print Punkterechner::getSechserPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetSechser())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getSechser()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="sechser" value="<?= Punkterechner::getSechserPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetSechser())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getSechser()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Gesamt</th>
 		<td><!-- Feld bleibt leer! --></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getSummeOben()) ?></td> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getSummeOben()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Bonus bei 63 o. mehr</th> 
 		<td><!-- Feld bleibt leer! --></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getBonusOben()) ?></td> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getBonusOben()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Gesamt Oben</th> 
 		<td><!-- Feld bleibt leer! --></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getGesamtOben()) ?></td> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getGesamtOben()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Dreierpasch</th>
-		<td><input type="submit" name="dreierpasch" value="<?print Punkterechner::getDreierpaschPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetDreierpasch())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getDreierpasch()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="dreierpasch" value="<?= Punkterechner::getDreierpaschPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetDreierpasch())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getDreierpasch()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Viererpasch</th>
-		<td><input type="submit" name="viererpasch" value="<?print Punkterechner::getViererpaschPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetViererpasch())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getViererpasch()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="viererpasch" value="<?= Punkterechner::getViererpaschPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetViererpasch())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getViererpasch()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Full House</th> 
-		<td><input type="submit" name="fullhouse" value="<?print Punkterechner::getFullHousePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetFullHouse())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getFullHouse()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="fullhouse" value="<?= Punkterechner::getFullHousePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetFullHouse())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getFullHouse()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Kleine Straße</th>
-		<td><input type="submit" name="kleinestrasse" value="<?print Punkterechner::getKleineStrassePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetKleineStrasse())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getKleineStrasse()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="kleinestrasse" value="<?= Punkterechner::getKleineStrassePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetKleineStrasse())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getKleineStrasse()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Große Straße</th> 
-		<td><input type="submit" name="grossestrasse" value="<?print Punkterechner::getGrosseStrassePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetGrosseStrasse())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getGrosseStrasse()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="grossestrasse" value="<?= Punkterechner::getGrosseStrassePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetGrosseStrasse())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getGrosseStrasse()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Kniffel</th> 
-		<td><input type="submit" name="kniffel" value="<?print Punkterechner::getKniffelPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetKniffel())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getKniffel()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="kniffel" value="<?= Punkterechner::getKniffelPunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetKniffel())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getKniffel()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Chance</th> 
-		<td><input type="submit" name="chance" value="<?print Punkterechner::getChancePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetChance())?>></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getChance()) ?></td> <!-- Spalte für Spieler 1 -->
+		<td><input type="submit" name="chance" value="<?= Punkterechner::getChancePunkte($Spiel->getWuerfelspiel()->getWuerfel())?>"<?=($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getSpielkarte()->isSetChance())?>></td>
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getChance()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 	<tr> 
 		<th>Gesamt Unten</th> 
 		<td><!-- Feld bleibt leer! --></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getGesamtUnten()) ?></td> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getGesamtUnten()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	<tr> 
 		<th>Endsumme</th> 
 		<td><!-- Feld bleibt leer! --></td>
-		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) :?>
-			<td> <? print($test->getSpielkarte()->getGesamtSumme()) ?></td> <!-- Spalte für Spieler 1 -->
+		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
+			<td> <?= ($test->getSpielkarte()->getGesamtSumme()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
 </table> 

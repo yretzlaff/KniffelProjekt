@@ -37,6 +37,9 @@ class Session {
 
         // create new session_id
         session_regenerate_id(true);
+		
+		// session starten
+		$_SESSION['gestartet'] = true;
     }
 
     public function create_user($user, $password)
@@ -53,12 +56,6 @@ class Session {
 					'passwort'  => $hash
 				));
 			
-
-         /**   $_SESSION['logged_in'] = true;
-            $_SESSION['user'] = $user;
-
-            // create new session_id
-            session_regenerate_id(true);**/
         } else {
             throw new Exception('Benutzername bereits vorhanden. Bitte wählen Sie einen anderen!');
         }

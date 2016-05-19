@@ -20,7 +20,7 @@
 
    <input type="submit" name="spiel_starten" value="Spiel Starten">
    
-   <input type="submit" name="abbrechen" value="Abbrechen">
+   <input type="submit" name="hauptmenue" value="Abbrechen">
 </form>
 
 
