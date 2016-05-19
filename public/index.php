@@ -1,6 +1,6 @@
 <?php
 
-<<<<<<< HEAD
+
 	require_once '../config.php';
 
 
@@ -74,70 +74,6 @@
 	if (isset($_POST[abbrechen])){
 		Template::render('userEdit', $template_data);
 	}
-	
-	//Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
-	//neues Spiel -> "Weiterer Spieler" Button
-    if (isset($_POST[weiterer_spieler])){
-		if ($_SESSION['anzahlSpieler'] < 4)
-		{
-			if (isset($_REQUEST['add_user']))
-			{
-				Session::create_user($_REQUEST['username'],$_REQUEST['password']);
-				$_SESSION['anzahlSpieler']++; 
-				$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-				$template_data['Spiel']->hinzufuegenSpieler($spieler);
-				Template::render('newGame', $template_data);
-			}
-			else
-			{
-				if (Session::check_credentials($_REQUEST['username'],$_REQUEST['password']))
-				{
-					$_SESSION['anzahlSpieler']++;
-					$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-					$template_data['Spiel']->hinzufuegenSpieler($spieler);
-					Template::render('newGame', $template_data);
-				}
-				else
-				{
-					throw new Exception('Benutzername und Password stimmen nicht überein!');
-				}
-			}
-		}
-		else
-		{
-			throw new Exception('Es können maximal 4 Spieler an einem Spiel teilnehmen!');
-		}
-	}
-    else
-		
-	// neues Spiel -> "Spiel starten" Button	
-    if (isset($_POST[spiel_starten])){
-		$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-		$_SESSION['Spiel']->hinzufuegenSpieler($spieler);
-		$template_data['Spiel'] = $_SESSION['Spiel'];
-		//print_r($spiel);
-=======
-require_once '../config.php';
-
-
-// initialize variables
-$template_data = array();
-
-
-//Verzweigung auf der Startseite mit den Buttons Neues Spiel und Spiel fortsetzen
-//start -> "Neues Spiel" Button
-if (isset($_POST[newGame])) {
-    SESSION::starten();
-    Template::render('newGame', $template_data);
-} else
-    //start -> "Spiel fortsetzen" Button
-    if (isset($_POST[continueGame])) {
-        SESSION::starten();
-        $template_data['filter'] = Spiel::getSpielListe();
-        Template::render('continueGameFilter', $template_data);
-
-    }
-
 
 //Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
 //neues Spiel -> "Weiterer Spieler" Button
@@ -174,7 +110,6 @@ if (isset($_POST[weiterer_spieler])) {
         $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
         print_r($_SESSION['Spiel']->getSId());
         $template_data['Spiel'] = $_SESSION['Spiel'];
->>>>>>> origin/master
         Template::render('actualGame', $template_data);
     } else
 

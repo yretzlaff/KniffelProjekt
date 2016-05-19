@@ -11,15 +11,13 @@ class Session {
 		}
 		else
 		{
-<<<<<<< HEAD
+
 			$passwordDatenbank = Benutzer::getNutzerdaten($user);
 
 			if (password_verify($password, $passwordDatenbank)) {
 				return true;
 			}
-=======
 
->>>>>>> origin/master
 		}
 		return false;
     }
