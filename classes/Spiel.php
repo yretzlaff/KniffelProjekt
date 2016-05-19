@@ -74,11 +74,9 @@ class Spiel
 		(
 				s_id => $this->s_id[0][s_id]
 		);
-		
-		print_r($this->s_id);
+
 		$stmt->execute($spiel);
 		$this->setBeendet(true);
-		print_r($this->beendet);
     }
 
     /*
@@ -86,15 +84,12 @@ class Spiel
      */
     public function istSpielBeendet()
     {
-		print("hallo");
-       if ($this->getBeendet() === true)
+       if ($this->getBeendet() == 1)
 	   {
-		   print("abc");
 		   return "disabled";
 	   }
 	   else
 	   {
-		   print "abcdew";
 		   return "";
 	   }
     }
