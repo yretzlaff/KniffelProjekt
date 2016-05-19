@@ -77,6 +77,13 @@ class Spiel
 
 		$stmt->execute($spiel);
 		$this->setBeendet(true);
+        foreach ($this->getSpieler() AS $spieler):
+            print_r($spieler->getSpielkarte()->getSkId());
+            $spieler->getSpielkarte()->persistiereSummeOben();
+            $spieler->getSpielkarte()->persistiereSummeUnten();
+            
+            
+        endforeach;    
     }
 
     /*
@@ -174,7 +181,7 @@ class Spiel
     {
         global $dbh;
 
-        $stmt = $dbh->prepare("SELECT spiele.s_id, Startdatum, COUNT(sk_id) AS anz FROM `spiele` LEFT JOIN `spielkarte` ON spiele.s_id = spielkarte.s_id WHERE spiele.beendet IS NULL");
+        $stmt = $dbh->prepare("SELECT spiele.s_id, Startdatum, COUNT(sk_id) AS anz FROM `spiele` LEFT JOIN `spielkarte` ON spiele.s_id = spielkarte.s_id WHERE spiele.beendet IS NULL GROUP BY spiele.s_id, Startdatum");
 
         $stmt->execute();
 

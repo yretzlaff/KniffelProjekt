@@ -39,7 +39,7 @@
 		<tbody>
 		<? if (!empty($filter)) foreach ($filter as $filter) : ?>
 			<tr>
-				<td><input type="radio" name="werte" value="1"></td>
+				<td><input type="radio" name="werte" value="<?$filter['s_id'] ?>"></td>
 				<td><?= $filter['s_id'] ?></td>
 				<td><?= h($filter['Startdatum']) ?></td>
 				<td><?= h($filter['anz']) ?></td>

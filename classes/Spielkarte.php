@@ -556,7 +556,42 @@ class Spielkarte
 
     }
 
-    public function persistiereEinser(){
+    public function persistiereSummeOben(){
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `summe_oben`= :summeOben WHERE sk_id = :sk_id");
+
+        $kartendaten = array
+        (
+            summeOben => $this->getGesamtOben(),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        $stmt->execute($kartendaten);
+
+
+    }
+
+    public function persistiereSummeUnten(){
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `summe_unten`= :summeUnten WHERE sk_id = :sk_id");
+
+
+        $kartendaten = array
+        (
+            summeUnten => $this->getGesamtUnten(),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($kartendaten);
+
+        $stmt->execute($kartendaten);
+
 
     }
 
