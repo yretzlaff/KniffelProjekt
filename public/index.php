@@ -30,13 +30,15 @@ if (isset($_POST[weiterer_spieler])) {
             Session::create_user($_REQUEST['username'], $_REQUEST['password']);
             $_SESSION['anzahlSpieler']++;
             $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-            $template_data['Spiel']->hinzufuegenSpieler($spieler);
+            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+            $template_data['Spiel'] = $_SESSION['Spiel'];
             Template::render('newGame', $template_data);
         } else {
             if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
                 $_SESSION['anzahlSpieler']++;
                 $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-                $template_data['Spiel']->hinzufuegenSpieler($spieler);
+                $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+                $template_data['Spiel'] = $_SESSION['Spiel'];
                 Template::render('newGame', $template_data);
             } else {
                 throw new Exception('Benutzername und Password stimmen nicht überein!');

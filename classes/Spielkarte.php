@@ -35,6 +35,15 @@ class Spielkarte
     {
             $this->einer = Punkterechner::getEinerPunkte($wuerfel);
     }
+    
+    public function isSetEiner(){
+        if($this->einer !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
 
     public function getZweier()
     {
@@ -44,6 +53,15 @@ class Spielkarte
     public function setZweier($wuerfel)
     {
         $this->zweier = Punkterechner::getZweierPunkte($wuerfel);
+    }
+
+    public function isSetZweier(){
+        if($this->zweier !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     public function getDreier()
@@ -56,6 +74,15 @@ class Spielkarte
         $this->dreier = Punkterechner::getDreierPunkte($wuerfel);
     }
 
+    public function isSetDreier(){
+        if($this->dreier !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+    
     public function getVierer()
     {
         return $this->vierer;
@@ -64,6 +91,15 @@ class Spielkarte
     function setVierer($wuerfel)
     {
         $this->vierer = Punkterechner::getViererPunkte($wuerfel);
+    }
+
+    public function isSetVierer(){
+        if($this->vierer !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     public function getFuenfer()
@@ -76,6 +112,15 @@ class Spielkarte
         $this->fuenfer = Punkterechner::getFuenferPunkte($wuerfel);
     }
 
+    public function isSetFuenfer(){
+        if($this->fuenfer !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+
     public function getSechser()
     {
         return $this->sechser;
@@ -84,6 +129,15 @@ class Spielkarte
     public function setSechser($wuerfel)
     {
         $this->sechser = Punkterechner::getSechserPunkte($wuerfel);
+    }
+
+    public function isSetSechser(){
+        if($this->sechser !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     public function getDreierpasch()
@@ -96,6 +150,15 @@ class Spielkarte
         $this->dreierpasch = Punkterechner::getDreierpaschPunkte($wuerfel);
     }
 
+    public function isSetDreierpasch(){
+        if($this->dreierpasch !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+
     public function getViererpasch()
     {
         return $this->viererpasch;
@@ -104,6 +167,15 @@ class Spielkarte
     public function setViererpasch($wuerfel)
     {
         $this->viererpasch = Punkterechner::getViererpaschPunkte($wuerfel);
+    }
+
+    public function isSetViererpasch(){
+        if($this->viererpasch !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     public function getFullHouse()
@@ -116,6 +188,15 @@ class Spielkarte
         $this->full_house = Punkterechner::getFullHousePunkte($wuerfel);
     }
 
+    public function isSetFullHouse(){
+        if($this->full_house !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+
     public function getKleineStrasse()
     {
         return $this->kleine_strasse;
@@ -124,6 +205,15 @@ class Spielkarte
     public function setKleineStrasse($wuerfel)
     {
         $this->kleine_strasse = Punkterechner::getKleineStrassePunkte($wuerfel);
+    }
+
+    public function isSetKleineStrasse(){
+        if($this->kleine_strasse !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     public function getGrosseStrasse()
@@ -136,6 +226,15 @@ class Spielkarte
         $this->grosse_strasse = Punkterechner::getGrosseStrassePunkte($wuerfel);
     }
 
+    public function isSetGrosseStrasse(){
+        if($this->grosse_strasse !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+
     public function getKniffel()
     {
         return $this->kniffel;
@@ -146,6 +245,15 @@ class Spielkarte
         $this->kniffel = Punkterechner::getKniffelPunkte($wuerfel);
     }
 
+    public function isSetKniffel(){
+        if($this->kniffel !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
+    }
+
     public function getChance()
     {
         return $this->chance;
@@ -154,6 +262,15 @@ class Spielkarte
     public function setChance($wuerfel)
     {
         $this->chance = Punkterechner::getChancePunkte($wuerfel);
+    }
+
+    public function isSetChance(){
+        if($this->chance !== null){
+            return "disabled";
+        }
+        else{
+            return "";
+        }
     }
 
     /*
