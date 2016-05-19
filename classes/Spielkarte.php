@@ -26,6 +26,8 @@ class Spielkarte
     private $kniffel;
     private $chance;
 
+    private $sk_id;
+
     public function getEiner()
     {
         return $this->einer;
@@ -34,6 +36,22 @@ class Spielkarte
     public function setEiner($wuerfel)
     {
             $this->einer = Punkterechner::getEinerPunkte($wuerfel);
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Einer`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getEinerPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
+
     }
     
     public function isSetEiner(){
@@ -53,6 +71,20 @@ class Spielkarte
     public function setZweier($wuerfel)
     {
         $this->zweier = Punkterechner::getZweierPunkte($wuerfel);
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Zweier`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getZweierPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
     }
 
     public function isSetZweier(){
@@ -72,6 +104,22 @@ class Spielkarte
     public function setDreier($wuerfel)
     {
         $this->dreier = Punkterechner::getDreierPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Dreier`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getDreierPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetDreier(){
@@ -91,6 +139,21 @@ class Spielkarte
     function setVierer($wuerfel)
     {
         $this->vierer = Punkterechner::getViererPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Vierer`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getViererPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
     }
 
     public function isSetVierer(){
@@ -110,6 +173,21 @@ class Spielkarte
     public function setFuenfer($wuerfel)
     {
         $this->fuenfer = Punkterechner::getFuenferPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Fuenfer`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getFuenferPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
     }
 
     public function isSetFuenfer(){
@@ -129,6 +207,21 @@ class Spielkarte
     public function setSechser($wuerfel)
     {
         $this->sechser = Punkterechner::getSechserPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Sechser`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getSechserPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
     }
 
     public function isSetSechser(){
@@ -148,6 +241,22 @@ class Spielkarte
     public function setDreierpasch($wuerfel)
     {
         $this->dreierpasch = Punkterechner::getDreierpaschPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Dreierpasch`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getDreierpaschPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetDreierpasch(){
@@ -167,6 +276,22 @@ class Spielkarte
     public function setViererpasch($wuerfel)
     {
         $this->viererpasch = Punkterechner::getViererpaschPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Viererpasch`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getViererpaschPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetViererpasch(){
@@ -186,6 +311,22 @@ class Spielkarte
     public function setFullHouse($wuerfel)
     {
         $this->full_house = Punkterechner::getFullHousePunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Full_House`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getFullHousePunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetFullHouse(){
@@ -205,6 +346,22 @@ class Spielkarte
     public function setKleineStrasse($wuerfel)
     {
         $this->kleine_strasse = Punkterechner::getKleineStrassePunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `kleine_Strasse`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getKleineStrassePunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetKleineStrasse(){
@@ -224,6 +381,22 @@ class Spielkarte
     public function setGrosseStrasse($wuerfel)
     {
         $this->grosse_strasse = Punkterechner::getGrosseStrassePunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `grosse_Straße`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getGrosseStrassePunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetGrosseStrasse(){
@@ -243,6 +416,22 @@ class Spielkarte
     public function setKniffel($wuerfel)
     {
         $this->kniffel = Punkterechner::getKniffelPunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Kniffel`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getKniffelPunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
+
     }
 
     public function isSetKniffel(){
@@ -262,6 +451,21 @@ class Spielkarte
     public function setChance($wuerfel)
     {
         $this->chance = Punkterechner::getChancePunkte($wuerfel);
+
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `Chance`= :wert WHERE sk_id = :sk_id");
+
+        $daten = array
+        (
+            wert => Punkterechner::getChancePunkte($wuerfel),
+            sk_id => $this->sk_id[0][sk_id]
+        );
+
+        print_r($daten);
+
+        $stmt->execute($daten);
     }
 
     public function isSetChance(){
@@ -311,6 +515,49 @@ class Spielkarte
      */
     public function getGesamtSumme()    {
         return ($this->getGesamtOben() + $this->getGesamtUnten());
+    }
+
+    public function getSkId()
+    {
+        return $this->sk_id;
+    }
+
+    public function setSkId($sk_id)
+    {
+        $this->sk_id = $sk_id;
+    }
+
+
+    public static function persistiereSpielkarte($u_id, $s_id, $position){
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("INSERT INTO `spielkarte`(`u_id`, `s_id`, `Position`) VALUES (:user, :spiel, :pos)");
+
+        $kartendaten = array
+        (
+            user => $u_id,
+            spiel => $s_id,
+            pos => $position
+        );
+
+        $stmt->execute($kartendaten);
+    }
+
+    public static function getLetzteSpielkarteinDB(){
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("SELECT sk_id FROM `spielkarte` ORDER BY sk_id DESC LIMIT 1 ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function persistiereEinser(){
+
     }
 
 
