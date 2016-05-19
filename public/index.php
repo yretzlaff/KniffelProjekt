@@ -2,10 +2,10 @@
 
 	require_once '../config.php';
 
-	$spiel = new Spiel();
+
 	// initialize variables
 	$template_data = array();
-	$template_data['Spiel'] = $spiel;
+
 	
 	//Verzweigung auf der Startseite mit den Buttons Neues Spiel und Spiel fortsetzen
 	//start -> "Neues Spiel" Button
@@ -34,7 +34,7 @@
 				Session::create_user($_REQUEST['username'],$_REQUEST['password']);
 				$_SESSION['anzahlSpieler']++; 
 				$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-				$spiel->hinzufuegenSpieler($spieler);
+				$template_data['Spiel']->hinzufuegenSpieler($spieler);
 				Template::render('newGame', $template_data);
 			}
 			else
@@ -43,7 +43,7 @@
 				{
 					$_SESSION['anzahlSpieler']++;
 					$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-					$spiel->hinzufuegenSpieler($spieler);
+					$template_data['Spiel']->hinzufuegenSpieler($spieler);
 					Template::render('newGame', $template_data);
 				}
 				else
@@ -62,7 +62,8 @@
 	// neues Spiel -> "Spiel starten" Button	
     if (isset($_POST[spiel_starten])){
 		$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-		$spiel->hinzufuegenSpieler($spieler);
+		$_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+		$template_data['Spiel'] = $_SESSION['Spiel'];
 		//print_r($spiel);
         Template::render('actualGame', $template_data);
     }
@@ -112,18 +113,23 @@
 	
 	if (!SESSION::gestartet() || empty($_POST))
 	{
+		$spiel = new Spiel();
+		$_SESSION['Spiel'] = $spiel;
+		$template_data['Spiel'] = $_SESSION['Spiel'];
 		$_SESSION['anzahlSpieler'] = 0;
 		Template::render('start', $template_data);
 	}
-	/*
+
 	if (isset($_POST[wuerfeln]))
 	{
 
-		print_r($spiel);
+		$_SESSION['Spiel']->getWuerfelspiel()->wuerfeln();
+		$template_data['Spiel'] = $_SESSION['Spiel'];
+		print_r($template_data['Spiel']);
 		Template::render('actualGame', $template_data);
 
 	}
-	*/
+
 /*
 
 TODO:

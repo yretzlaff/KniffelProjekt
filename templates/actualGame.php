@@ -83,7 +83,7 @@
 </table> 
 
 <input type="submit" name="spiel_beenden" value="Spiel beenden">
-<input type="button" value="Würfeln" name="wuerfeln" id="wuerfeln" onclick=<?$Spiel->getWuerfelspiel()->wuerfeln(); ?>>
+<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" >
 <input type="button" name="bank1" value="">
 <input type="button" name="bank2" value="">
 <input type="button" name="bank3" value="">
