@@ -130,7 +130,24 @@ if (isset($_POST[weiterer_spieler])) {
 
     // neues Spiel -> "Spiel starten" Button
     if (isset($_POST[spiel_starten])) {
+        if (isset($_REQUEST['add_user'])) {
+            Session::create_user($_REQUEST['username'], $_REQUEST['password']);
+            $_SESSION['anzahlSpieler']++;
+            $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+            $_SESSION['Spiel']->persistiereSpiel();
+            $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
 
+            $i = 1;
+            if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
+                Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
+                $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
+                $i = $i + 1;
+            endforeach;
+			
+            $template_data['Spiel'] = $_SESSION['Spiel'];
+            Template::render('actualGame', $template_data);
+        } else {
         if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
             $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
             $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
@@ -150,6 +167,7 @@ if (isset($_POST[weiterer_spieler])) {
         else{
             throw new Exception('Benutzername und Password stimmen nicht überein!');
         }
+		}
 
 
     }
