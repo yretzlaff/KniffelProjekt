@@ -7,7 +7,7 @@
 	$template_data = array();
 
 	
-	//Verzweigung auf der Startseite mit den Buttons Neues Spiel und Spiel fortsetzen
+	//Verzweigung auf der Startseite mit den Buttons Neues Spiel, Spiel fortsetzen und Benutzerverwaltung
 	//start -> "Neues Spiel" Button
 	if (isset($_POST[newGame]))
 	{
@@ -22,8 +22,58 @@
 		Template::render('continueGameFilter', $template_data);
 		
 	}
+	else
+		//start -> "Benutzerverwaltung" Button
+	if (isset($_POST[nutzerVerwaltung])){
+		SESSION::starten();
+		Template::render('login', $template_data);
+	}
+	
+	//Verzweigung auf der Login Seite mit den Buttons Login und Abbrechen
+	if (isset($_POST[login])){
+		if (Session::check_credentials($_REQUEST['username'],$_REQUEST['password']))
+			{
+				$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
+				Template::render('userEdit',$template_data);
+			}
+			else
+			{
+				throw new Exception('Benutzername und Passwort stimmen nicht überein!');
+			}
+	}
 
+	//Verzweigung auf der Nutzerverwaltungsseite mit den Buttons Nutzername ändern, Passwort ändern, Account löschen und 
 
+	if (isset($_POST[namenAendern])){
+		$template_data['user'] = $_SESSION['user'];
+		Template::render('changeUsername', $template_data);
+	}
+	else
+	
+	if (isset($_POST[passwortAendern])){
+		Template::render('changePassword', $template_data);
+	}
+	else
+		
+	if (isset($_POST[nutzerLoeschen])){
+		Template::render('start', $template_data);
+	}
+	
+	//Verzweigung auf der Username ändern Seite mit den Buttons Bestätigen und Abbrechen
+	if (isset($_POST[bestaetigenUsername])){
+		$_SESSION['user']->setName($_REQUEST[neuerUsername]);
+		Template::render('userEdit', $template_data);
+	}
+	
+	//Verzweigung auf der Passwort ändern Seite mit den Buttons Bestätigen und Abbrechen
+	if(isset($_POST[bestaetigenPasswort])){
+		Template::render('userEdit', $template_data);
+	}
+		
+	if (isset($_POST[abbrechen])){
+		Template::render('userEdit', $template_data);
+	}
+	
 	//Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
 	//neues Spiel -> "Weiterer Spieler" Button
     if (isset($_POST[weiterer_spieler])){

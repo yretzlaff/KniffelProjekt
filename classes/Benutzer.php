@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class Benutzer
 {
@@ -25,7 +25,7 @@ class Benutzer
 		
 		$stmt->execute($user);
 		
-		return $stmt->fetch;
+		return $stmt->fetchColumn();
 		
     }
 	
@@ -81,5 +81,15 @@ class Benutzer
 
 
 	}
+	
+	    public static function changeUsernamer($username)
+    {
+        global $dbh;
+		
+		$stmt = $dbh->prepare("INSERT INTO user(username, password) VALUES (:username,:passwort) ");
+		
+		$stmt->execute($nutzerdaten);
+		
+    }
 
 }

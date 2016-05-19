@@ -1,4 +1,4 @@
-<form action="index.php" method="post" class="newGame">
+<form action="index.php" method="post" class="continueGameFilter">
 <h1 align="center">Spiel fortsetzen</h1>
 <hr>
 

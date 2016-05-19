@@ -11,16 +11,9 @@ class Session {
 		}
 		else
 		{
-			$password = Benutzer::getNutzerdaten($user);
+			$passwordDatenbank = Benutzer::getNutzerdaten($user);
 
-			$hash = password_hash($password, PASSWORD_DEFAULT);
-
-			if (password_verify($password, $hash)) {
-				$_SESSION['logged_in'] = true;
-				$_SESSION['user'] = $user;
-
-
-
+			if (password_verify($password, $passwordDatenbank)) {
 				return true;
 			}
 		}

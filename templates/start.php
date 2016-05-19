@@ -1,10 +1,12 @@
-
+﻿
 <form action="index.php" method="post" class="start">
 
         <button type="submit", id="newGame", name="newGame">Neues Spiel</button>
 
 
         <button type="submit", id="continueGame", name="continueGame">Spiel fortsetzen</button>
+		
+		<button type="submit", id="nutzerVerwaltung", name="nutzerVerwaltung">Benutzerverwaltung</button>
     <br>
    <label for="Ranking">
 Ranking

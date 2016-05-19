@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class Template {
     function render_partial($template_path, $data = array())

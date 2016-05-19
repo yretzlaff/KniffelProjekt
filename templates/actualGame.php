@@ -1,4 +1,4 @@
-<form action="index.php" method="post" class="newGame">
+<form action="index.php" method="post" class="actualGame">
 <h3 align="right">Spieler am Zug: <? print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
 
 <table> 

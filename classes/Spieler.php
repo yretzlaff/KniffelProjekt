@@ -25,6 +25,7 @@ class Spieler
      */
     public function getName()
     {
+		
         return $this->name;
     }
 
