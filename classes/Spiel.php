@@ -122,6 +122,16 @@ class Spiel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAktuellerSpieler()
+    {
+        return $this->aktuellerSpieler;
+    }
+
+    public function getWuerfelspiel()
+    {
+        return $this->wuerfelspiel;
+    }
+
 }
 
 /**

@@ -63,6 +63,7 @@
     if (isset($_POST[spiel_starten])){
 		$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
 		$spiel->hinzufuegenSpieler($spieler);
+		//print_r($spiel);
         Template::render('actualGame', $template_data);
     }
 	else
@@ -114,7 +115,15 @@
 		$_SESSION['anzahlSpieler'] = 0;
 		Template::render('start', $template_data);
 	}
+	/*
+	if (isset($_POST[wuerfeln]))
+	{
 
+		print_r($spiel);
+		Template::render('actualGame', $template_data);
+
+	}
+	*/
 /*
 
 TODO:

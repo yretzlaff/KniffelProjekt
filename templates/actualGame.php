@@ -1,5 +1,5 @@
 <form action="index.php" method="post" class="newGame">
-<h3 align="right">Spieler am Zug:</h3>
+<h3 align="right">Spieler am Zug: <? print($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
 
 <table> 
 	<tr> 
@@ -83,16 +83,36 @@
 </table> 
 
 <input type="submit" name="spiel_beenden" value="Spiel beenden">
-<input type="button" value="Würfeln">
+<input type="button" value="Würfeln" name="wuerfeln" id="wuerfeln" onclick=<?$Spiel->getWuerfelspiel()->wuerfeln(); ?>>
 <input type="button" name="bank1" value="">
 <input type="button" name="bank2" value="">
 <input type="button" name="bank3" value="">
 <input type="button" name="bank4" value="">
 <input type="button" name="bank5" value="">
-<input type="button" name="wuerfel1" value="">
+	
+	
+	<button id="bt1", name = "wuerfel1">
+		<img src="../public/assets/images/dice_<?print($Spiel->getWuerfelspiel()->getBecher()[1]->getWert())?>.jpg" alt="X">
+	</button>
+	<button id="bt2", name = "wuerfel2">
+		<img src="../public/assets/images/dice_<?print($Spiel->getWuerfelspiel()->getBecher()[2]->getWert())?>.jpg" alt="X">
+	</button>
+	<button id="bt3", name = "wuerfel3">
+		<img src="../public/assets/images/dice_<?print($Spiel->getWuerfelspiel()->getBecher()[3]->getWert())?>.jpg" alt="X">
+	</button>
+	<button id="bt4", name = "wuerfel4">
+		<img src="../public/assets/images/dice_<?print($Spiel->getWuerfelspiel()->getBecher()[4]->getWert())?>.jpg" alt="X">
+	</button>
+	<button id="bt5", name = "wuerfel5">
+		<img src="../public/assets/images/dice_<?print($Spiel->getWuerfelspiel()->getBecher()[5]->getWert())?>.jpg" alt="X">
+	</button>
+	
 <input type="button" name="wuerfel2" value="">
 <input type="button" name="wuerfel3" value="">
 <input type="button" name="wuerfel4" value="">
 <input type="button" name="wuerfel5" value="">
+
+	<?print_r($Spiel->getWuerfelspiel()->getBecher()[5])?>
+	
 
 </form>

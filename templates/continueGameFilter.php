@@ -26,14 +26,13 @@
 		</colgroup>
 		<thead>
 		<tr>
-			<td>Spiel ID</td>
-			<td>Datum</td>
-			<td>Anzahl Spieler</td>
-			<td>Spieler 1</td>
-			<td>Spieler 2</td>
-			<td>Spieler 3</td>
-			<td>Spieler 4</td>
-			<td></td>
+			<th>Spiel ID</th>
+			<th>Datum</th>
+			<th>Anzahl Spieler</th>
+			<th>Spieler 1</th>
+			<th>Spieler 2</th>
+			<th>Spieler 3</th>
+			<th>Spieler 4</th>
 		</tr>
 		</thead>
 
@@ -48,7 +47,6 @@
 				<td><?= h($spieler[1]['username']) ?></td>
 				<td><?= h($spieler[2]['username']) ?></td>
 				<td><?= h($spieler[3]['username']) ?></td>
-				<td><a href="?action=delete_album&id=<?= $album['ID'] ?>">Löschen</a></td>
 			</tr>
 		<? endforeach ?>
 		</tbody>

@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `spielerscore` int(6) DEFAULT "1500",
   PRIMARY KEY (`id`)
 );
 
