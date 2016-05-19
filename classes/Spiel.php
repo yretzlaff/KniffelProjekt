@@ -15,6 +15,8 @@ class Spiel
     private $aktuellerSpieler = 0;
     private $aktuelleRunde = 0;
 
+    private $s_id;
+
     /*
      * Konstrukor zur instanziierung eines Spiel-Objektes
      */
@@ -79,6 +81,26 @@ class Spiel
         return $this->spieler;
     }
 
+    public function getAktuellerSpieler()
+    {
+        return $this->aktuellerSpieler;
+    }
+
+    public function getWuerfelspiel()
+    {
+        return $this->wuerfelspiel;
+    }
+
+    public function getSId()
+    {
+        return $this->s_id;
+    }
+
+    public function setSId($s_id)
+    {
+        $this->s_id = $s_id;
+    }
+
     /*
      * Testmethode zur Simulation eines Spiels
      */
@@ -122,14 +144,27 @@ class Spiel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAktuellerSpieler()
-    {
-        return $this->aktuellerSpieler;
+    public function persistiereSpiel(){
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("INSERT INTO `spiele`(`Startdatum`, `Derzeitiger_Spieler`) VALUES (NOW(),1)");
+
+        $stmt->execute();
     }
 
-    public function getWuerfelspiel()
-    {
-        return $this->wuerfelspiel;
+
+
+    public static function getLetztesSpielinDB(){
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("SELECT s_id FROM `spiele` ORDER BY s_id DESC LIMIT 1 ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
 }

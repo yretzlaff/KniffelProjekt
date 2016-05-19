@@ -30,7 +30,12 @@ class WuerfelSpiel
             5 => new Wuerfel(),
         );
 
-        $this->bank = array();
+        $this->bank = array(1 => null,
+            2 => null,
+            3 => null,
+            4 => null,
+            5 => null,
+            );
         $this->geworfen = 0;
     }
 
@@ -129,7 +134,7 @@ class WuerfelSpiel
     {
         $w = $this->getBecher();
 
-        for ($i = 1; $i < WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
+        for ($i = 1; $i <= WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
             if (!isset($w[$i]) && isset($this->getBank()[$i])) {
                 $w[$i] = $this->getBank()[$i];
             }
