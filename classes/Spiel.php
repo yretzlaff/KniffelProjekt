@@ -15,7 +15,7 @@ class Spiel
     private $aktuellerSpieler = 0;
     private $aktuelleRunde = 0;
 
-    private $s_id;
+    private $s_id = 0;
 
     /*
      * Konstrukor zur instanziierung eines Spiel-Objektes

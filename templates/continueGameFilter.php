@@ -39,7 +39,7 @@
 		<tbody>
 		<? if (!empty($filter)) foreach ($filter as $filter) : ?>
 			<tr>
-				<td>#<?= $filter['s_id'] ?></td>
+				<td><?= $filter['s_id'] ?></td>
 				<td><?= h($filter['Startdatum']) ?></td>
 				<td><?= h($filter['anz']) ?></td>
 				<? $spieler = Spiel::getBenutzerZuSpiel($filter['s_id']) ?>

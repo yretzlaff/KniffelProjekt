@@ -7,6 +7,8 @@
         <button type="submit", id="continueGame", name="continueGame">Spiel fortsetzen</button>
 		
 		<button type="submit", id="nutzerVerwaltung", name="nutzerVerwaltung">Benutzerverwaltung</button>
+
+        <button type="submit", id="callRanking", name="callRanking">weitere Ranglisten</button>
     <br>
    <label for="Ranking">
 Ranking
@@ -21,7 +23,7 @@ Ranking
         </colgroup>
         <thead>
         <tr>
-            <td>#ID</td>
+            <td>ID</td>
             <td>User</td>
             <td>Punkte</td>
             <td></td>
@@ -29,15 +31,13 @@ Ranking
         </thead>
 
         <tbody>
-        <? if (!empty($ranking)) foreach ($ranking as $ranking) : ?>
+        <? if (!empty($ScoreListe)) foreach ($ScoreListe as $Score) { ?>
             <tr>
-                <td>#<?= $ranking['ID'] ?></td>
-                <td><?= h($ranking['Kuenstler']) ?></td>
-                <td><?= h($ranking['Album']) ?></td>
-                <td><?= h($ranking['Erscheinungsjahr']) ?></td>
-                <td><?=  date("d.m.Y", strtotime($album['Zeitstempel'])) ?></td>
+                <td><? print($Score['ID']) ?></td>
+                <td><? print($Score['Username']) ?></td>
+                <td><? print($Score['spielerscore']) ?></td>
             </tr>
-        <? endforeach ?>
+        <? } ?>
         </tbody>
 
         <tfoot>
