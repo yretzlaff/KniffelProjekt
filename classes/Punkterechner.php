@@ -15,7 +15,7 @@ class Punkterechner
      * Gesamtsumme aller im Würfelbild enthaltenen Einsen
      */
     public static function getEinerPunkte($wuerfel)
-    {
+    {   print_r($wuerfel);
         $summe = 0;
         for ($i = 1; $i <= WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
             if ($wuerfel[$i]->getWert() == 1) {

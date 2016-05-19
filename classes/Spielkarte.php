@@ -22,7 +22,7 @@ class Spielkarte
     private $viererpasch;
     private $full_house;
     private $kleine_strasse;
-    private $große_strasse;
+    private $grosse_strasse;
     private $kniffel;
     private $chance;
 
@@ -126,14 +126,14 @@ class Spielkarte
         $this->kleine_strasse = Punkterechner::getKleineStrassePunkte($wuerfel);
     }
 
-    public function getGroßeStrasse()
+    public function getGrosseStrasse()
     {
-        return $this->große_strasse;
+        return $this->grosse_strasse;
     }
 
-    public function setGroßeStrasse($wuerfel)
+    public function setGrosseStrasse($wuerfel)
     {
-        $this->große_strasse = Punkterechner::getGrosseStrassePunkte($wuerfel);
+        $this->grosse_strasse = Punkterechner::getGrosseStrassePunkte($wuerfel);
     }
 
     public function getKniffel()
