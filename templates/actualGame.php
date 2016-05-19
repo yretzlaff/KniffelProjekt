@@ -138,7 +138,7 @@
 </table> 
 
 <input type="submit" name="spiel_beenden" value="Spiel beenden">
-<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" >
+<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istSpielBeendet() ?>>
 	
 
 	<button id="w1", name = "wuerfel1">

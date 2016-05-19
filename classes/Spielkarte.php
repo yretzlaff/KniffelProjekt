@@ -385,7 +385,7 @@ class Spielkarte
 
         global $dbh;
 
-        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `grosse_Straße`= :wert WHERE sk_id = :sk_id");
+        $stmt = $dbh->prepare("UPDATE `spielkarte` SET `grosse_Strasse`= :wert WHERE sk_id = :sk_id");
 
         $daten = array
         (
@@ -507,7 +507,7 @@ class Spielkarte
      * Gibt die untere Gesamtsumme der Sonderwürfe zurück
      */
     public function getGesamtUnten()    {
-        return ($this->dreierpasch + $this->viererpasch + $this->full_house + $this->kleine_strasse + $this->große_strasse + $this->kniffel + $this->chance);
+        return ($this->dreierpasch + $this->viererpasch + $this->full_house + $this->kleine_strasse + $this->grosse_strasse + $this->kniffel + $this->chance);
     }
 
     /*

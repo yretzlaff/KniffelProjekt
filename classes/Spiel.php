@@ -14,6 +14,7 @@ class Spiel
     //Zustände des Spiels
     private $aktuellerSpieler = 0;
     private $aktuelleRunde = 0;
+	private $beendet = false;
 
     private $s_id = 0;
 
@@ -65,9 +66,39 @@ class Spiel
      */
     public function spielBeenden()
     {
-
+        global $dbh;
+		
+		$stmt = $dbh->prepare("UPDATE spiele SET beendet = 1 WHERE s_id = :s_id");
+		
+		$spiel = array
+		(
+				s_id => $this->s_id[0][s_id]
+		);
+		
+		print_r($this->s_id);
+		$stmt->execute($spiel);
+		$this->setBeendet(true);
+		print_r($this->beendet);
     }
 
+    /*
+     * Methode um zu überprüfen ob Spiel beendet ist
+     */
+    public function istSpielBeendet()
+    {
+		print("hallo");
+       if ($this->getBeendet() === true)
+	   {
+		   print("abc");
+		   return "disabled";
+	   }
+	   else
+	   {
+		   print "abcdew";
+		   return "";
+	   }
+    }
+	
     /*
      * Methode um neue Spieler hinzuzufügen
      */
@@ -100,7 +131,18 @@ class Spiel
     {
         $this->s_id = $s_id;
     }
+	
+    public function setBeendet($beendet)
+    {
+        $this->beendet = $beendet;
+    }
 
+    public function getBeendet()
+    {
+        return $this->beendet;
+    }
+
+	
     /*
      * Testmethode zur Simulation eines Spiels
      */
