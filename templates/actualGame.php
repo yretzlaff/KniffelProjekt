@@ -141,36 +141,40 @@
 <input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istSpielBeendet() ?>>
 	
 
-	<button id="w1", name = "wuerfel1" <?= $Spiel->istSpielBeendet() ?>>
+
+	<button id="w1", name = "wuerfel1"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[1]):print($Spiel->getWuerfelspiel()->getBecher()[1]->getWert());endif?>.jpg" alt="W">
 	</button>
-	<button id="w2", name = "wuerfel2" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="w2", name = "wuerfel2"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[2]):print($Spiel->getWuerfelspiel()->getBecher()[2]->getWert());endif?>.jpg" alt="W">
 	</button>
-	<button id="w3", name = "wuerfel3" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="w3", name = "wuerfel3"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[3]):print($Spiel->getWuerfelspiel()->getBecher()[3]->getWert());endif?>.jpg" alt="W">
 	</button>
-	<button id="w4", name = "wuerfel4" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="w4", name = "wuerfel4"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[4]):print($Spiel->getWuerfelspiel()->getBecher()[4]->getWert());endif?>.jpg" alt="W">
 	</button>
-	<button id="w5", name = "wuerfel5" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="w5", name = "wuerfel5"<?= $Spiel->istSpielBeendet() ?>>
+
+
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[5]):print($Spiel->getWuerfelspiel()->getBecher()[5]->getWert());endif?>.jpg" alt="W">
 	</button>
 
 
-	<button id="b1", name = "bank1" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="b1", name = "bank1"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[1]):print($Spiel->getWuerfelspiel()->getBank()[1]->getWert());endif?>.jpg" alt="B">
 	</button>
-	<button id="b2", name = "bank2" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="b2", name = "bank2"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[2]):print($Spiel->getWuerfelspiel()->getBank()[2]->getWert());endif?>.jpg" alt="B">
 	</button>
-	<button id="b3", name = "bank3" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="b3", name = "bank3"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[3]):print($Spiel->getWuerfelspiel()->getBank()[3]->getWert());endif?>.jpg" alt="B">
 	</button>
-	<button id="b4", name = "bank4" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="b4", name = "bank4"<?= $Spiel->istSpielBeendet() ?>>
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[4]):print($Spiel->getWuerfelspiel()->getBank()[4]->getWert());endif?>.jpg" alt="B">
 	</button>
-	<button id="b5", name = "bank5" <?= $Spiel->istSpielBeendet() ?>>
+	<button id="b5", name = "bank5"<?= $Spiel->istSpielBeendet() ?>>
+
 		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[5]):print($Spiel->getWuerfelspiel()->getBank()[5]->getWert());endif?>.jpg" alt="B">
 	</button>
 	
