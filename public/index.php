@@ -177,14 +177,12 @@ if (isset($_POST[weiterer_spieler])) {
 //Verzweigung auf der continueGameFilter Seite mit den Buttons Spiel fortsetzen und Hauptmenü
 //continue Game Filter -> "Spiel fortsetzen" Button
 if (isset($_POST[spiel_fortsetzen])) {
-	$_SESSION['Spiel'] = new Spiel();
+	//$_SESSION['Spiel'] = new Spiel();
 	$_SESSION['Spiel']->getSpiel($_REQUEST['werte']);
 	$_SESSION['anzahlSpielerFortgesetzt'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId());
-	var_dump($_SESSION['Spiel']->getSId());
-	print_r($_SESSION['Spiel']->getSId()['s_id']);
+
 	$_SESSION['einzuloggenderSpieler'] = 0;
-	//$_SESSION['Spiel']->setSId(50);
-	print_r ($_SESSION['Spiel']->getSId());
+
     $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
 	$template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
     Template::render('continueGameLogin', $template_data);
@@ -198,6 +196,12 @@ if (isset($_POST[naechster_spieler])) {
     Template::render('continueGameLogin', $template_data);
 } else
     if (isset($_POST[spiel_fortsetzen2])) {
+
+        // Hier Hapert's noch, den neuen Spieler ins Spiel hinzuzufügen! Morgen hier weiter
+        $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['Spiel']->getSId(), $template_data['benutzer'][0][username]));
+        $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+
+        $template_data['Spiel'] = $_SESSION['Spiel'];
         Template::render('actualGame', $template_data);
     }
 

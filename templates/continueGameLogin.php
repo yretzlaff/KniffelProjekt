@@ -2,7 +2,6 @@
 	   <label for="username">
        Login:
    </label>
-   <? var_dump($benutzer); ?>
    <label id="username" name="username" > <?= $benutzer[0]['username'] ?></label>
 
    <label for="password">

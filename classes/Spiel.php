@@ -136,16 +136,14 @@ class Spiel
     /*
      * Methode um Werte des Spiel Objektes entsprechend den Werten aus der Datenbank zu setzen
      */
-    public function getSpiel($id)
+    public function getSpiel($s_id)
     {
-		$spiel = Spiel::getSpielausDB($id);
-		var_dump($spiel);
-		print($spiel['s_id']);
-		echo "abcde";
-		$this->setSId($spiel['s_id']);
-		$this->setDerzeitigerspieler($spiel['derzeitiger_spieler']);
-		$this->setAktuelleRunde($spiel['aktuelle_runde']);
-		$this->getSpielerAusDB($id);
+		$spiel = Spiel::getSpielausDB($s_id);
+
+		$this->setSId($spiel[0][s_id]);
+		$this->setDerzeitigerspieler($spiel[0][derzeitiger_spieler]);
+		$this->setAktuelleRunde($spiel[0][aktuelle_runde]);
+		$this->getSpielerAusDB($s_id);
     }
 	
 	/*
@@ -153,8 +151,8 @@ class Spiel
      */
     public function getSpielerZuSpiel($s_id)
     {
-		$spiel = Spiel::getSpielerAusDB($id);
-		foreach ($Spiel as $spieler)
+		$spiel = Spiel::getSpielerAusDB($s_id);
+		foreach ($spiel as $spieler)
 		{
 			$spielerHinzu = new Spieler($spieler['id'],$spieler['username']);
 			$this->hinzufuegenSpieler($spielerHinzu);
@@ -339,10 +337,12 @@ class Spiel
 		$spielArr = array
 		(
 				spieler	=> $this->getAktuellerSpieler(),
-				s_id 	=> $this->getSId()
+				s_id 	=> $this->getSId()[0][s_id]
 		);
+        print_r($spielArr);
 
         $stmt->execute($spielArr);
+
     }
 	
 	public function persistiereRunde()
@@ -350,13 +350,14 @@ class Spiel
 
         global $dbh;
 
-        $stmt = $dbh->prepare("UPDATE spiele SET aktuelle_Runde = :runde WHERE s_id = :s_id");
+        $stmt = $dbh->prepare("UPDATE spiele SET Aktuelle_Runde = :runde WHERE s_id = :s_id");
 		
 		$spielArr = array
 		(
 				runde	=> $this->getAktuelleRunde(),
-				s_id 	=> $this->getSId()
+				s_id 	=> $this->getSId()[0][s_id]
 		);
+
 
         $stmt->execute($spielArr);
     }
