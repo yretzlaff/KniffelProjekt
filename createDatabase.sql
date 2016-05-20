@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `spiele` (
   `beendet` BOOLEAN,
   `Startdatum` DATE,
   `Derzeitiger_Spieler` int(11),
+  `Aktuelle_Runde` int(11),
   PRIMARY KEY (`s_id`)
 );
 

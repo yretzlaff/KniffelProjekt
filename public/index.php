@@ -20,7 +20,7 @@
     }
 		
 
-	//Verzweigung auf der Startseite mit den Buttons Neues Spiel, Spiel fortsetzen und Benutzerverwaltung
+	//Verzweigung auf der Startseite mit den Buttons Neues Spiel, Spiel fortsetzen und Benutzerverwaltung und Ranking
 	//start -> "Neues Spiel" Button
 	if (isset($_POST[newGame]))
 	{
@@ -39,6 +39,7 @@
         //start -> "Ranking aufrufen" Button
         if (isset($_POST[callRanking]))
         {
+			SESSION::starten();
             $template_data['WinListe'] = Ranking::getMeistenSiege();
             $template_data['PunkteListe'] = Ranking::getPunkteListe();
             Template::render('moreRankings', $template_data);
@@ -176,12 +177,24 @@ if (isset($_POST[weiterer_spieler])) {
 //Verzweigung auf der continueGameFilter Seite mit den Buttons Spiel fortsetzen und Hauptmenü
 //continue Game Filter -> "Spiel fortsetzen" Button
 if (isset($_POST[spiel_fortsetzen])) {
-    $template_data['benutzer'] = Spiel::getBenutzerZuSpiel();
+	$_SESSION['Spiel'] = new Spiel();
+	$_SESSION['Spiel']->getSpiel($_REQUEST['werte']);
+	$_SESSION['anzahlSpielerFortgesetzt'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId());
+	var_dump($_SESSION['Spiel']->getSId());
+	print_r($_SESSION['Spiel']->getSId()['s_id']);
+	$_SESSION['einzuloggenderSpieler'] = 0;
+	//$_SESSION['Spiel']->setSId(50);
+	print_r ($_SESSION['Spiel']->getSId());
+    $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
+	$template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
     Template::render('continueGameLogin', $template_data);
 }
 
 //Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler, Spiel fortsetzen und Hauptmenü
 if (isset($_POST[naechster_spieler])) {
+	$template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
+	$_SESSION['einzuloggenderSpieler']++;
+	$template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
     Template::render('continueGameLogin', $template_data);
 } else
     if (isset($_POST[spiel_fortsetzen2])) {
@@ -289,7 +302,6 @@ if (isset($_POST[bank5])) {
 
 if (isset($_POST[einer])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setEiner($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
-    
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
     print_r($template_data['Spiel']->getWuerfelspiel());
