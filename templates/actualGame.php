@@ -138,44 +138,41 @@
 </table> 
 
 <input type="submit" name="spiel_beenden" value="Spiel beenden">
-<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istSpielBeendet() ?>>
+<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istWuerfelbar() ?>>
 	
 
 
-	<button id="w1", name = "wuerfel1"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[1]):print($Spiel->getWuerfelspiel()->getBecher()[1]->getWert());endif?>.jpg" alt="W">
+	<button id="w1", name = "wuerfel1"<?= $Spiel->istBecherVerschiebbar(1) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[1] && null !== $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
-	<button id="w2", name = "wuerfel2"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[2]):print($Spiel->getWuerfelspiel()->getBecher()[2]->getWert());endif?>.jpg" alt="W">
+	<button id="w2", name = "wuerfel2"<?= $Spiel->istBecherVerschiebbar(2) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[2] && null !== $Spiel->getWuerfelspiel()->getBecher()[2]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[2]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
-	<button id="w3", name = "wuerfel3"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[3]):print($Spiel->getWuerfelspiel()->getBecher()[3]->getWert());endif?>.jpg" alt="W">
+	<button id="w3", name = "wuerfel3"<?= $Spiel->istBecherVerschiebbar(3) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[3] && null !== $Spiel->getWuerfelspiel()->getBecher()[3]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[3]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
-	<button id="w4", name = "wuerfel4"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[4]):print($Spiel->getWuerfelspiel()->getBecher()[4]->getWert());endif?>.jpg" alt="W">
+	<button id="w4", name = "wuerfel4"<?= $Spiel->istBecherVerschiebbar(4) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[4] && null !== $Spiel->getWuerfelspiel()->getBecher()[4]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[4]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
-	<button id="w5", name = "wuerfel5"<?= $Spiel->istSpielBeendet() ?>>
-
-
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[5]):print($Spiel->getWuerfelspiel()->getBecher()[5]->getWert());endif?>.jpg" alt="W">
+	<button id="w5", name = "wuerfel5"<?= $Spiel->istBecherVerschiebbar(5) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[5] && null !== $Spiel->getWuerfelspiel()->getBecher()[5]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[5]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
 
 
-	<button id="b1", name = "bank1"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[1]):print($Spiel->getWuerfelspiel()->getBank()[1]->getWert());endif?>.jpg" alt="B">
+	<button id="b1", name = "bank1"<?= $Spiel->istBankVerschiebbar(1) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[1] && null !== $Spiel->getWuerfelspiel()->getBank()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[1]->getWert()) . ".jpg";endif?>" alt="B">
 	</button>
-	<button id="b2", name = "bank2"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[2]):print($Spiel->getWuerfelspiel()->getBank()[2]->getWert());endif?>.jpg" alt="B">
+	<button id="b2", name = "bank2"<?= $Spiel->istBankVerschiebbar(2) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[2] && null !== $Spiel->getWuerfelspiel()->getBank()[2]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[2]->getWert()) . ".jpg";endif?>" alt="B">
 	</button>
-	<button id="b3", name = "bank3"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[3]):print($Spiel->getWuerfelspiel()->getBank()[3]->getWert());endif?>.jpg" alt="B">
+	<button id="b3", name = "bank3"<?= $Spiel->istBankVerschiebbar(3) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[3] && null !== $Spiel->getWuerfelspiel()->getBank()[3]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[3]->getWert()) . ".jpg";endif?>" alt="B">
 	</button>
-	<button id="b4", name = "bank4"<?= $Spiel->istSpielBeendet() ?>>
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[4]):print($Spiel->getWuerfelspiel()->getBank()[4]->getWert());endif?>.jpg" alt="B">
+	<button id="b4", name = "bank4"<?= $Spiel->istBankVerschiebbar(4) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[4] && null !== $Spiel->getWuerfelspiel()->getBank()[4]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[4]->getWert()) . ".jpg";endif?>" alt="B">
 	</button>
-	<button id="b5", name = "bank5"<?= $Spiel->istSpielBeendet() ?>>
-
-		<img src="../public/assets/images/dice_<?if(null !== $Spiel->getWuerfelspiel()->getBank()[5]):print($Spiel->getWuerfelspiel()->getBank()[5]->getWert());endif?>.jpg" alt="B">
+	<button id="b5", name = "bank5"<?= $Spiel->istBankVerschiebbar(5) ?>>
+		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[5] && null !== $Spiel->getWuerfelspiel()->getBank()[5]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[5]->getWert()) . ".jpg";endif?>" alt="B">
 	</button>
 	
 	

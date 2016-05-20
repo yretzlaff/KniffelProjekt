@@ -89,16 +89,43 @@ class Spiel
     /*
      * Methode um zu überprüfen ob Spiel beendet ist
      */
-    public function istSpielBeendet()
+    public function istBecherVerschiebbar($w)
     {
-       if ($this->getBeendet() == 1)
-	   {
-		   return "disabled";
-	   }
-	   else
-	   {
-		   return "";
-	   }
+        if ($this->getBeendet() == 1 || !$this->getWuerfelspiel()->hatgewürfelt() || null == $this->getWuerfelspiel()->getBecher()[$w] || null == $this->getWuerfelspiel()->getBecher()[$w]->getWert())
+        {
+            return "disabled";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    /*
+     * Methode um zu überprüfen ob Spiel beendet ist
+     */
+    public function istBankVerschiebbar($w)
+    {
+        if ($this->getBeendet() == 1 || !$this->getWuerfelspiel()->hatgewürfelt() || null == $this->getWuerfelspiel()->getBank()[$w] || null == $this->getWuerfelspiel()->getBank()[$w]->getWert())
+        {
+            return "disabled";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public function istWuerfelbar()
+    {
+        if ($this->getBeendet() == 1)
+        {
+            return "disabled";
+        }
+        else
+        {
+            return "";
+        }
     }
 	
     /*
