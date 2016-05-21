@@ -213,9 +213,7 @@ class Spiel
      */
     public function hinzufuegenSpieler($neuerspieler)
     {
-        if (!$this->istSpielVoll() && !$this->istSpielerSchonAngemeldet($neuerspieler)) {
             $this->spieler[count($this->spieler) + 1] = $neuerspieler;
-        }
     }
 
     public function getSpieler()
