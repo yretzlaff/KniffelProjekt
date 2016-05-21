@@ -12,7 +12,7 @@
     <div
         style="border : double 2px #0000ff; background : #ffffff; color : #000000; width : 80%; height : 60%; overflow : auto; margin-left : 10%;">
         <!-- Liste mit den begonnenen Spielen -->
-        <table class="album">
+        <table class="filter">
             <colgroup>
                 <col>
                 <col>

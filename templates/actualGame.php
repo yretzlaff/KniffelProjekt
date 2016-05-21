@@ -1,7 +1,9 @@
 <form action="index.php" method="post" class="actualGame">
-<h3 align="right">Spieler am Zug: <?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
+<h3 align="center">Spieler am Zug: <?= ($Spiel->getSpieler()[$Spiel->getAktuellerSpieler()]->getName());?></h3>
 
-<table> 
+
+	<div class="punktetabelle">
+		<table class="gametable">
 	<tr> 
 		<th><!-- Spalte für Bezeichnungen --></th>
 		<th><!-- Spalte für Knöpfe --></th>
@@ -135,13 +137,35 @@
 			<td> <?= ($test->getSpielkarte()->getGesamtSumme()) ?></td> <!-- Spalte für Spieler 1 -->
 		<? endforeach; ?>
 	</tr>
-</table> 
-
-<input type="submit" name="spiel_beenden" value="Spiel beenden">
-<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istWuerfelbar() ?>>
-	
+</table>
+	</div>
 
 
+
+	<div class="bank">
+		<h2> Würfel Auf der Bank: </h2>
+		<button id="b1", name = "bank1"<?= $Spiel->istBankVerschiebbar(1) ?>>
+			<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[1] && null !== $Spiel->getWuerfelspiel()->getBank()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[1]->getWert()) . ".jpg";endif?>" alt="B">
+		</button>
+		<button id="b2", name = "bank2"<?= $Spiel->istBankVerschiebbar(2) ?>>
+			<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[2] && null !== $Spiel->getWuerfelspiel()->getBank()[2]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[2]->getWert()) . ".jpg";endif?>" alt="B">
+		</button>
+		<button id="b3", name = "bank3"<?= $Spiel->istBankVerschiebbar(3) ?>>
+			<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[3] && null !== $Spiel->getWuerfelspiel()->getBank()[3]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[3]->getWert()) . ".jpg";endif?>" alt="B">
+		</button>
+		<button id="b4", name = "bank4"<?= $Spiel->istBankVerschiebbar(4) ?>>
+			<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[4] && null !== $Spiel->getWuerfelspiel()->getBank()[4]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[4]->getWert()) . ".jpg";endif?>" alt="B">
+		</button>
+		<button id="b5", name = "bank5"<?= $Spiel->istBankVerschiebbar(5) ?>>
+			<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[5] && null !== $Spiel->getWuerfelspiel()->getBank()[5]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[5]->getWert()) . ".jpg";endif?>" alt="B">
+		</button>
+
+	</div>
+
+
+	<div class="wurfeln">
+		</br></br></br></br></br></br>
+		<input type="submit" value="Würfeln" name="wuerfeln" id="wuerfeln" <?= $Spiel->istWuerfelbar() ?>></br></br>
 	<button id="w1", name = "wuerfel1"<?= $Spiel->istBecherVerschiebbar(1) ?>>
 		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[1] && null !== $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()) . ".jpg";endif?>" alt="W">
 	</button>
@@ -159,21 +183,14 @@
 	</button>
 
 
-	<button id="b1", name = "bank1"<?= $Spiel->istBankVerschiebbar(1) ?>>
-		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[1] && null !== $Spiel->getWuerfelspiel()->getBank()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[1]->getWert()) . ".jpg";endif?>" alt="B">
-	</button>
-	<button id="b2", name = "bank2"<?= $Spiel->istBankVerschiebbar(2) ?>>
-		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[2] && null !== $Spiel->getWuerfelspiel()->getBank()[2]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[2]->getWert()) . ".jpg";endif?>" alt="B">
-	</button>
-	<button id="b3", name = "bank3"<?= $Spiel->istBankVerschiebbar(3) ?>>
-		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[3] && null !== $Spiel->getWuerfelspiel()->getBank()[3]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[3]->getWert()) . ".jpg";endif?>" alt="B">
-	</button>
-	<button id="b4", name = "bank4"<?= $Spiel->istBankVerschiebbar(4) ?>>
-		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[4] && null !== $Spiel->getWuerfelspiel()->getBank()[4]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[4]->getWert()) . ".jpg";endif?>" alt="B">
-	</button>
-	<button id="b5", name = "bank5"<?= $Spiel->istBankVerschiebbar(5) ?>>
-		<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBank()[5] && null !== $Spiel->getWuerfelspiel()->getBank()[5]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBank()[5]->getWert()) . ".jpg";endif?>" alt="B">
-	</button>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="beenden">
+		<input type="submit" name="spiel_beenden" value="Spiel beenden">
+		</div>
+
 	
 	
 

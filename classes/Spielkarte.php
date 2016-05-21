@@ -610,8 +610,7 @@ class Spielkarte
         $stmt->execute($spielArr);
 
         $geladenenDaten = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        print_r($geladenenDaten);
+        
         $this->einer = $geladenenDaten[0][Einer];
         $this->zweier = $geladenenDaten[0][Zweier];
         $this->dreier = $geladenenDaten[0][Dreier];
