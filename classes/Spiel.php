@@ -4,6 +4,7 @@ class Spiel
 {
     //Abhängig von der ANzahl der Zeilen auf einer Spielkarte (aktuell 13)
     const MAXANZAHLRUNDEN = 13;
+    const MAXANZAHLSPIELER = 4;
 
     //Liste der Spieler mit ihren Spielkarten
     private $spieler = array();
@@ -164,13 +165,57 @@ class Spiel
 		$this->setAktuellerSpieler($spiel['derzeitiger_spieler']);
 		$this->setAktuelleRunde($spiel['aktuelle_runde']);
     }
+
+
+    public function istSpielVoll()
+    {
+        if (count($this->getSpieler()) == Spiel::MAXANZAHLSPIELER)    {
+            return true;
+        }
+        else    {
+            return false;
+        }
+    }
+
+    public function hatSpieler()
+    {
+        if (count($this->getSpieler()) > 0)    {
+            return true;
+        }
+        else    {
+            return false;
+        }
+    }
+
+    public function istSpielVollMinusEins()
+    {
+        if (count($this->getSpieler()) == Spiel::MAXANZAHLSPIELER - 1)    {
+            return true;
+        }
+        else    {
+            return false;
+        }
+    }
+
+    public function istSpielerSchonAngemeldet($spieler)
+    {
+        foreach ($this->getSpieler() as $s) {
+            if ($spieler->getName() == $s->getName())    {
+                return true;
+            }
+        }
+        return false;
+
+    }
 	
     /*
      * Methode um neue Spieler hinzuzufügen
      */
     public function hinzufuegenSpieler($neuerspieler)
     {
-        $this->spieler[count($this->spieler) + 1] = $neuerspieler;
+        if (!$this->istSpielVoll() && !$this->istSpielerSchonAngemeldet($neuerspieler)) {
+            $this->spieler[count($this->spieler) + 1] = $neuerspieler;
+        }
     }
 
     public function getSpieler()
@@ -222,6 +267,7 @@ class Spiel
     {
         return $this->beendet;
     }
+    
 
 	
     /*

@@ -15,7 +15,7 @@
    <input type="checkbox" name="add_user" value="1">
 
    
-   <input type="submit" name="weiterer_spieler" value="Weiterer Spieler">
+   <input type="submit" name="weiterer_spieler" value="Weiterer Spieler" <? if ($Spiel->istSpielVollMinusEins()): print("Disabled"); endif ?>>
    
 
    <input type="submit" name="spiel_starten" value="Spiel Starten">

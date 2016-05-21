@@ -7,7 +7,7 @@ class Session {
 		
 		if ($stmt == 0)
 		{
-			throw new Exception('Benutzer nicht vorhanden. Überprüfen Sie den Nutzernamen oder erstellen Sie einen neuen Nutzer!');
+			//throw new Exception('Benutzer nicht vorhanden. Überprüfen Sie den Nutzernamen oder erstellen Sie einen neuen Nutzer!');
 		}
 		else
 		{

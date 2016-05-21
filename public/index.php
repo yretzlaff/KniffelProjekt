@@ -24,6 +24,7 @@ if (isset($_POST[hauptmenue])) {
 //start -> "Neues Spiel" Button
 if (isset($_POST[newGame])) {
     SESSION::starten();
+    $template_data['Spiel'] = $_SESSION['Spiel'];
     Template::render('newGame', $template_data);
 } else
     //start -> "Spiel fortsetzen" Button
@@ -33,7 +34,7 @@ if (isset($_POST[newGame])) {
         $alleSpiele = Spiel::getSpielListe();
 
         //Die Namen der Spieler zu allen Zeilen hinzufügen
-        for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+        for ($i = 0; $i < count($alleSpiele); $i++) {
             $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
             $alleSpiele[$i]['s1'] = $spieler[0]['username'];
             $alleSpiele[$i]['s2'] = $spieler[1]['username'];
@@ -108,7 +109,7 @@ if (isset($_POST[abbrechen])) {
 //Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
 //neues Spiel -> "Weiterer Spieler" Button
 if (isset($_POST[weiterer_spieler])) {
-    if ($_SESSION['anzahlSpieler'] < 4) {
+    if (!$_SESSION['Spiel']->istSpielVoll()) {
         if (isset($_REQUEST['add_user'])) {
             Session::create_user($_REQUEST['username'], $_REQUEST['password']);
             $_SESSION['anzahlSpieler']++;
@@ -124,7 +125,11 @@ if (isset($_POST[weiterer_spieler])) {
                 $template_data['Spiel'] = $_SESSION['Spiel'];
                 Template::render('newGame', $template_data);
             } else {
-                throw new Exception('Benutzername und Password stimmen nicht überein!');
+                //Bei Fehlerhaftem Login existiert garnichts, die Seite wird neu gerendert
+                print("Keine Gültigen Login-Daten");
+                $template_data['Spiel'] = $_SESSION['Spiel'];
+                Template::render('newGame', $template_data);
+                //throw new Exception('Benutzername und Password stimmen nicht überein!');
             }
         }
     } else {
@@ -168,17 +173,29 @@ if (isset($_POST[weiterer_spieler])) {
                 $template_data['Spiel'] = $_SESSION['Spiel'];
                 Template::render('actualGame', $template_data);
             } else {
-                throw new Exception('Benutzername und Password stimmen nicht überein!');
+                //Hat der Spieler auf Spielstarten geklickt, ohne dass ein Login-Name eingegebn wurde,
+                //hat er vermutlich zuvor aus Versehen auf "weiterer Spieler" gedrückt und
+                // das spiel wird gestartet, ohne einen zusätzlichen spieler hinzuzufügen
+                if ($_SESSION['Spiel']->hatSpieler() && $_REQUEST['username'] == null) {
+                    $template_data['Spiel'] = $_SESSION['Spiel'];
+                    Template::render('actualGame', $template_data);
+                } else {
+                    print("Keine Gültigen Login-Daten");
+                    $template_data['Spiel'] = $_SESSION['Spiel'];
+                    Template::render('newGame', $template_data);
+                    //throw new Exception('Benutzername und Password stimmen nicht überein!');
+                }
+
             }
         }
 
 
     }
-if (isset($_POST[filter_entfernen]))    {
+if (isset($_POST[filter_entfernen])) {
     $alleSpiele = Spiel::getSpielListe();
 
     //Die Namen der Spieler zu allen Zeilen hinzufügen
-    for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+    for ($i = 0; $i < count($alleSpiele); $i++) {
         $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
         $alleSpiele[$i]['s1'] = $spieler[0]['username'];
         $alleSpiele[$i]['s2'] = $spieler[1]['username'];
@@ -209,8 +226,7 @@ if (isset($_POST[filter_anwenden])) {
     $s4 = $_REQUEST['spieler4'];
 
 
-
-    for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+    for ($i = 0; $i < count($alleSpiele); $i++) {
         //Die Namen der Spieler zu allen Zeilen hinzufügen
         $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
         $alleSpiele[$i]['s1'] = $spieler[0]['username'];
@@ -231,33 +247,33 @@ if (isset($_POST[filter_anwenden])) {
         try {
             new DateTime($alleSpiele[$i]['Startdatum']);
             new DateTime($datum);
-        } catch (Exception $e)  {
+        } catch (Exception $e) {
             $datum = null;
         }
 
 
-        if (($spielID != null && $alleSpiele[$i]['s_id'] == $spielID) || $spielID== null) {
+        if (($spielID != null && $alleSpiele[$i]['s_id'] == $spielID) || $spielID == null) {
             $idmatch = true;
         }
-        if (($datum != null && new Datetime($alleSpiele[$i]['Startdatum']) == new Datetime($datum)) || $datum== null) {
+        if (($datum != null && new Datetime($alleSpiele[$i]['Startdatum']) == new Datetime($datum)) || $datum == null) {
             $datmatch = true;
         }
-        if (($anzspieler != null && $alleSpiele[$i]['anz'] == $anzspieler) || $anzspieler== null) {
+        if (($anzspieler != null && $alleSpiele[$i]['anz'] == $anzspieler) || $anzspieler == null) {
             $anzmatch = true;
         }
-        if (($s1 != null && $alleSpiele[$i]['s1'] == $s1) || $s1== null) {
+        if (($s1 != null && $alleSpiele[$i]['s1'] == $s1) || $s1 == null) {
             $s1match = true;
         }
-        if (($s2 != null && $alleSpiele[$i]['s2'] == $s2) || $s2== null) {
+        if (($s2 != null && $alleSpiele[$i]['s2'] == $s2) || $s2 == null) {
             $s2match = true;
         }
-        if (($s3 != null && $alleSpiele[$i]['s3'] == $s3) || $s3== null) {
+        if (($s3 != null && $alleSpiele[$i]['s3'] == $s3) || $s3 == null) {
             $s3match = true;
         }
-        if (($s4 != null && $alleSpiele[$i]['s4'] == $s4) || $s4== null) {
+        if (($s4 != null && $alleSpiele[$i]['s4'] == $s4) || $s4 == null) {
             $s4match = true;
         }
-        
+
         if ($idmatch && $datmatch && $anzmatch && $s1match && $s2match && $s3match && $s4match) {
             $spiele[$i] = $alleSpiele[$i];
         }
@@ -294,33 +310,33 @@ if (isset($_POST[spiel_fortsetzen])) {
 
 //Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler, Spiel fortsetzen und Hauptmenü
 
-    if (isset($_POST[spiel_weiter])) {
+if (isset($_POST[spiel_weiter])) {
 
-        print_r($_SESSION['benutzer']);
-        if (Session::check_credentials($_SESSION['benutzer'], $_REQUEST['password'])) {
+    print_r($_SESSION['benutzer']);
+    if (Session::check_credentials($_SESSION['benutzer'], $_REQUEST['password'])) {
         // Hier Hapert's noch, den neuen Spieler ins Spiel hinzuzufügen! Morgen hier weiter
 
-            $_SESSION['anzahlEingeloggterSpieler']++;
-            $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['benutzer']), $_SESSION['benutzer']);
-            $spieler->getSpielkarte()->fetchSpielkarte($spieler->getId(),$_SESSION['Spiel']->getSId());
-            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+        $_SESSION['anzahlEingeloggterSpieler']++;
+        $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['benutzer']), $_SESSION['benutzer']);
+        $spieler->getSpielkarte()->fetchSpielkarte($spieler->getId(), $_SESSION['Spiel']->getSId());
+        $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+
+        $template_data['Spiel'] = $_SESSION['Spiel'];
+
+        print_r($_SESSION['anzahlEingeloggterSpieler']);
+        print_r($_SESSION['anzahlEinzuloggenderSpieler']);
+        if ($_SESSION['anzahlEingeloggterSpieler'] < $_SESSION['anzahlEinzuloggenderSpieler']) {
+
+            $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
+            $template_data['benutzer'] = $_SESSION['benutzer'];
+            print_r($template_data['benutzer']);
+            Template::render('continueGameLogin', $template_data);
+
+        } else {
 
             $template_data['Spiel'] = $_SESSION['Spiel'];
-
-            print_r($_SESSION['anzahlEingeloggterSpieler']);
-            print_r($_SESSION['anzahlEinzuloggenderSpieler']);
-            if($_SESSION['anzahlEingeloggterSpieler']< $_SESSION['anzahlEinzuloggenderSpieler']){
-
-                $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
-                $template_data['benutzer'] = $_SESSION['benutzer'];
-                print_r($template_data['benutzer']);
-                Template::render('continueGameLogin', $template_data);
-
-            }else{
-
-                $template_data['Spiel'] = $_SESSION['Spiel'];
-                Template::render('actualGame', $template_data);
-            }
+            Template::render('actualGame', $template_data);
+        }
 
 
     } else {
