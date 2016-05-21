@@ -10,6 +10,9 @@
 	   <input id="password" type="password" name="password" placeholder="Passwort">
    </label>
 
+   <label>	
+   <input type=<? if ($fehler == false){ echo "hidden";} else {echo "text";}?> name="fehler" size="47" value="Benutzername und Passwort stimmen nicht überein!" readonly disabled>
+   </label>
 
 	<input type="submit" name="login" value="Login">
 	
