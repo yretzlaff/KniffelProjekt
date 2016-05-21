@@ -29,7 +29,20 @@ if (isset($_POST[newGame])) {
     //start -> "Spiel fortsetzen" Button
     if (isset($_POST[continueGame])) {
         SESSION::starten();
-        $template_data['filter'] = Spiel::getSpielListe();
+
+        $alleSpiele = Spiel::getSpielListe();
+
+        //Die Namen der Spieler zu allen Zeilen hinzufügen
+        for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+            $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
+            $alleSpiele[$i]['s1'] = $spieler[0]['username'];
+            $alleSpiele[$i]['s2'] = $spieler[1]['username'];
+            $alleSpiele[$i]['s3'] = $spieler[2]['username'];
+            $alleSpiele[$i]['s4'] = $spieler[3]['username'];
+        }
+
+        $template_data['filter'] = array();
+        $template_data['spiele'] = $alleSpiele;
         Template::render('continueGameFilter', $template_data);
 
     } else
@@ -161,6 +174,100 @@ if (isset($_POST[weiterer_spieler])) {
 
 
     }
+if (isset($_POST[filter_entfernen]))    {
+    $alleSpiele = Spiel::getSpielListe();
+
+    //Die Namen der Spieler zu allen Zeilen hinzufügen
+    for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+        $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
+        $alleSpiele[$i]['s1'] = $spieler[0]['username'];
+        $alleSpiele[$i]['s2'] = $spieler[1]['username'];
+        $alleSpiele[$i]['s3'] = $spieler[2]['username'];
+        $alleSpiele[$i]['s4'] = $spieler[3]['username'];
+    }
+
+    $template_data['filter'] = array();
+    $template_data['spiele'] = $alleSpiele;
+    Template::render('continueGameFilter', $template_data);
+}
+
+
+if (isset($_POST[filter_anwenden])) {
+    //alle SPiele aus der Datenbank
+    $alleSpiele = Spiel::getSpielListe();
+    //Nur die SPiele, die nach filterung angezeigt werden
+    $spiele = array();
+    //Die gesetzten Filter
+    $filter = array();
+
+    $spielID = $_REQUEST['spielid'];
+    $datum = $_REQUEST['spieldatum'];
+    $anzspieler = $_REQUEST['anzSpieler'];
+    $s1 = $_REQUEST['spieler1'];
+    $s2 = $_REQUEST['spieler2'];
+    $s3 = $_REQUEST['spieler3'];
+    $s4 = $_REQUEST['spieler4'];
+
+
+
+    for ($i = 0 ; $i < count($alleSpiele); $i++)    {
+        //Die Namen der Spieler zu allen Zeilen hinzufügen
+        $spieler = Spiel::getBenutzerZuSpiel($alleSpiele[$i]['s_id']);
+        $alleSpiele[$i]['s1'] = $spieler[0]['username'];
+        $alleSpiele[$i]['s2'] = $spieler[1]['username'];
+        $alleSpiele[$i]['s3'] = $spieler[2]['username'];
+        $alleSpiele[$i]['s4'] = $spieler[3]['username'];
+
+
+        //Prüfen, ob Zeile den Filtern entspricht
+        $idmatch = false;
+        $datmatch = false;
+        $anzmatch = false;
+        $s1match = false;
+        $s2match = false;
+        $s3match = false;
+        $s4match = false;
+
+
+        if (($spielID != null && $alleSpiele[$i]['s_id'] == $spielID) || $spielID== null) {
+            $idmatch = true;
+        }
+        if (($datum != null && $alleSpiele[$i]['Startdatum'] == $datum) || $datum== null) {
+            $datmatch = true;
+        }
+        if (($anzspieler != null && $alleSpiele[$i]['anz'] == $anzspieler) || $anzspieler== null) {
+            $anzmatch = true;
+        }
+        if (($s1 != null && $alleSpiele[$i]['s1'] == $s1) || $s1== null) {
+            $s1match = true;
+        }
+        if (($s2 != null && $alleSpiele[$i]['s2'] == $s2) || $s2== null) {
+            $s2match = true;
+        }
+        if (($s3 != null && $alleSpiele[$i]['s3'] == $s3) || $s3== null) {
+            $s3match = true;
+        }
+        if (($s4 != null && $alleSpiele[$i]['s4'] == $s4) || $s4== null) {
+            $s4match = true;
+        }
+        
+        if ($idmatch && $datmatch && $anzmatch && $s1match && $s2match && $s3match && $s4match) {
+            $spiele[$i] = $alleSpiele[$i];
+        }
+
+    }
+    $filter['id'] = $spielID;
+    $filter['dat'] = $datum;
+    $filter['anz'] = $anzspieler;
+    $filter['s1'] = $s1;
+    $filter['s2'] = $s2;
+    $filter['s3'] = $s3;
+    $filter['s4'] = $s4;
+
+    $template_data['filter'] = $filter;
+    $template_data['spiele'] = $spiele;
+    Template::render('continueGameFilter', $template_data);
+}
 
 
 //Verzweigung auf der continueGameFilter Seite mit den Buttons Spiel fortsetzen und Hauptmenü
