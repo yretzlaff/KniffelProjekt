@@ -1,0 +1,74 @@
+
+
+/* template: Ranking & Start */
+.rankingtable{ 
+	margin-left: auto;
+    margin-right: auto; 
+	background-color: white;
+	width: 60%;	
+}
+.rankingtable td th{ 
+    border-bottom: 1px solid #ddd;
+	width: 33%;
+}
+
+
+/* template: continueGameFilter */
+.filter {
+	border-collapse: collapse;
+	border: 1px solid black;
+	margin-left: auto;
+    margin-right: auto;
+	background-color: white;
+	width: 80%;
+	overflow : auto;
+}
+
+
+
+
+
+/* template: acutual Game */
+.gametable {
+	border-collapse: collapse;
+	border: 1px solid black;
+	margin-left: 0%; 
+	background-color: white;
+}
+.gametable tr td, .gametable tr th{
+	border-collapse: collapse;
+	border-bottom: 1px solid black;
+	min-width: 70;
+}
+.punktetabelle{
+	float: left;
+}
+.bank{
+	float: right;
+}
+.clear{
+	clear: both;
+}
+.wurfeln{
+	text-align: center;
+}
+.wurfeln input{
+	width: 250px;
+	height: 40px;
+	margin: auto;
+}
+
+.beenden input{
+	width: 100%;
+}
+
+
+
+
+/* template: layout */
+.layout {
+	text-align: center;
+	background: linear-gradient(green, white, green);
+	min-height: 90vh;
+}
+

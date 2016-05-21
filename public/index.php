@@ -68,7 +68,9 @@ if (isset($_POST[login])) {
         $template_data['user'] = $_SESSION['user'];
         Template::render('userEdit', $template_data);
     } else {
-        throw new Exception('Benutzername und Passwort stimmen nicht überein!');
+		//Benutzername und Passwort stimmen nicht überein, anzeige Selbe Maske mit Fehler
+		$template_data['fehler'] = true;
+		Template::render('login', $template_data);
     }
 }
 
@@ -98,7 +100,9 @@ if (isset($_POST[bestaetigenPasswort])) {
         Benutzer::changePassword(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $hash);
         Template::render('userEdit', $template_data);
     } else {
-        throw new Exception('Passwörter stimmen nicht überein');
+		//Passwörter stimmen nicht überein, anzeige Selbe Maske mit Fehler
+		$template_data['fehler'] = true;
+		Template::render('changePassword', $template_data);
     }
 }
 
@@ -125,15 +129,12 @@ if (isset($_POST[weiterer_spieler])) {
                 $template_data['Spiel'] = $_SESSION['Spiel'];
                 Template::render('newGame', $template_data);
             } else {
-                //Bei Fehlerhaftem Login existiert garnichts, die Seite wird neu gerendert
-                print("Keine Gültigen Login-Daten");
-                $template_data['Spiel'] = $_SESSION['Spiel'];
+				//Benutzername und Passwort stimmen nicht überein, anzeige Selbe Maske mit Fehler
+				$template_data['fehler'] = true;
+				$template_data['Spiel'] = $_SESSION['Spiel'];
                 Template::render('newGame', $template_data);
-                //throw new Exception('Benutzername und Password stimmen nicht überein!');
             }
         }
-    } else {
-        throw new Exception('Es können maximal 4 Spieler an einem Spiel teilnehmen!');
     }
 } else
 
@@ -180,10 +181,10 @@ if (isset($_POST[weiterer_spieler])) {
                     $template_data['Spiel'] = $_SESSION['Spiel'];
                     Template::render('actualGame', $template_data);
                 } else {
-                    print("Keine Gültigen Login-Daten");
-                    $template_data['Spiel'] = $_SESSION['Spiel'];
-                    Template::render('newGame', $template_data);
-                    //throw new Exception('Benutzername und Password stimmen nicht überein!');
+					//Benutzername und Passwort stimmen nicht überein, anzeige Selbe Maske mit Fehler
+					$template_data['fehler'] = true;
+					$template_data['Spiel'] = $_SESSION['Spiel'];
+					Template::render('newGame', $template_data);
                 }
 
             }
@@ -340,7 +341,10 @@ if (isset($_POST[spiel_weiter])) {
 
 
     } else {
-        throw new Exception('Benutzername und Password stimmen nicht überein!');
+		//Benutzername und Passwort stimmen nicht überein, anzeige Selbe Maske mit Fehler
+		$template_data['fehler'] = true;
+	    Template::render('continueGameLogin', $template_data);
+        //throw new Exception('Benutzername und Password stimmen nicht überein!');
     }
 }
 
@@ -351,6 +355,7 @@ if (isset($_POST[spiel_beenden])) {
     $_SESSION['Spiel'] = $spiel;
     $template_data['Spiel'] = $_SESSION['Spiel'];
     $_SESSION['anzahlSpieler'] = 0;
+	$template_data['ScoreListe'] = Ranking::getScoreListe();
     Template::render('start', $template_data);
 }
 

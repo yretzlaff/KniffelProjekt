@@ -9,24 +9,16 @@
 		<button type="submit", id="nutzerVerwaltung", name="nutzerVerwaltung">Benutzerverwaltung</button>
 
         <button type="submit", id="callRanking", name="callRanking">weitere Ranglisten</button>
-    <br>
-   <label for="Ranking">
-Ranking
-   </label>
-    <table class="ranking">
-        <colgroup>
-            <col style="width: 20px;">
-            <col style="width: 30%">
-            <col style="width: 30%">
-            <col style="width: 30%">
-            <col>
-        </colgroup>
+	
+	<hr>
+    <h2>	Top 10 Spieler:  </h2>
+    <table class="rankingtable">
+
         <thead>
         <tr>
-            <td>ID</td>
-            <td>User</td>
-            <td>Punkte</td>
-            <td></td>
+            <th class="rankingtablehead">ID</th>
+            <th class="rankingtablehead">User</th>
+            <th class="rankingtablehead">Punkte</th>
         </tr>
         </thead>
 
@@ -40,11 +32,6 @@ Ranking
         <? } ?>
         </tbody>
 
-        <tfoot>
-        <tr>
-            <td colspan="5">All rights reserved</td>
-        </tr>
-        </tfoot>
     </table>
 
 </form>
