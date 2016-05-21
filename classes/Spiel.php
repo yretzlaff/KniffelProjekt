@@ -44,9 +44,9 @@ class Spiel
      */
     public function naechsterSpieler()
     {
-        $this->setDerzeitigerSpieler($this->getAktuellerSpieler()+1);
+        $this->setAktuellerSpieler($this->getAktuellerSpieler()+1);
         if ($this->getAktuellerSpieler() > count($this->spieler)) {
-            $this->setDerzeitigerSpieler(1);
+            $this->setAktuellerSpieler(1);
             $this->naechsteRunde();
         }
 		$this->persistiereSpieler();
@@ -92,7 +92,7 @@ class Spiel
     }
 
     /*
-     * Methode um zu überprüfen ob Spiel beendet ist
+     * Methode um zu überprüfen ob Würfelbutton aus dem Becher klickbar sein soll
      */
     public function istBecherVerschiebbar($w)
     {
@@ -107,7 +107,7 @@ class Spiel
     }
 
     /*
-     * Methode um zu überprüfen ob Spiel beendet ist
+     * Methode um zu überprüfen ob Würfelbutton von der Bank klickbar sein soll
      */
     public function istBankVerschiebbar($w)
     {
@@ -121,6 +121,9 @@ class Spiel
         }
     }
 
+    /**
+     * Methode um zu überprüfen, ob Würfel-Button klickbar ist (Wenn Spiel noch nicht beendet)
+     */
     public function istWuerfelbar()
     {
         if ($this->getBeendet() == 1)
@@ -141,7 +144,7 @@ class Spiel
 		$spiel = Spiel::getSpielausDB($s_id);
 
 		$this->setSId($spiel[0][s_id]);
-		$this->setDerzeitigerspieler($spiel[0][derzeitiger_spieler]);
+		$this->setAktuellerSpieler($spiel[0][derzeitiger_spieler]);
 		$this->setAktuelleRunde($spiel[0][aktuelle_runde]);
 		$this->getSpielerAusDB($s_id);
     }
@@ -158,7 +161,7 @@ class Spiel
 			$this->hinzufuegenSpieler($spielerHinzu);
 		}
 		$this->setSId($spiel['s_id']);
-		$this->setDerzeitigerspieler($spiel['derzeitiger_spieler']);
+		$this->setAktuellerSpieler($spiel['derzeitiger_spieler']);
 		$this->setAktuelleRunde($spiel['aktuelle_runde']);
     }
 	
@@ -195,7 +198,7 @@ class Spiel
         $this->s_id = $s_id;
     }
 	
-    public function setDerzeitigerspieler($derzeitigierSpieler)
+    public function setAktuellerSpieler($derzeitigierSpieler)
     {
         $this->aktuellerSpieler = $derzeitigierSpieler;
     }

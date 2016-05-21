@@ -1,106 +1,96 @@
 <?php
 
 
-	require_once '../config.php';
+require_once '../config.php';
 
 
-	// initialize variables
-	$template_data = array();
+// initialize variables
+$template_data = array();
 
 
-	// Jeder Verzweigung zum Hauptmenü
-    if (isset($_POST[hauptmenue])) {
-		SESSION::logout();
-		$spiel = new Spiel();
-		$_SESSION['Spiel'] = $spiel;
-		$template_data['Spiel'] = $_SESSION['Spiel'];
-		$_SESSION['anzahlSpieler'] = 0;
-		$template_data['ScoreListe'] = Ranking::getScoreListe();
-        Template::render('start', $template_data);
-    }
-		
+// Jeder Verzweigung zum Hauptmenü
+if (isset($_POST[hauptmenue])) {
+    SESSION::logout();
+    $spiel = new Spiel();
+    $_SESSION['Spiel'] = $spiel;
+    $template_data['Spiel'] = $_SESSION['Spiel'];
+    $_SESSION['anzahlSpieler'] = 0;
+    $template_data['ScoreListe'] = Ranking::getScoreListe();
+    Template::render('start', $template_data);
+}
 
-	//Verzweigung auf der Startseite mit den Buttons Neues Spiel, Spiel fortsetzen und Benutzerverwaltung und Ranking
-	//start -> "Neues Spiel" Button
-	if (isset($_POST[newGame]))
-	{
-		SESSION::starten();
-		Template::render('newGame', $template_data);
-	}
-	else
-		//start -> "Spiel fortsetzen" Button	
-	if (isset($_POST[continueGame])){
-		SESSION::starten();
-		$template_data['filter'] = Spiel::getSpielListe();
-		Template::render('continueGameFilter', $template_data);
-		
-	}
-	else
+
+//Verzweigung auf der Startseite mit den Buttons Neues Spiel, Spiel fortsetzen und Benutzerverwaltung und Ranking
+//start -> "Neues Spiel" Button
+if (isset($_POST[newGame])) {
+    SESSION::starten();
+    Template::render('newGame', $template_data);
+} else
+    //start -> "Spiel fortsetzen" Button
+    if (isset($_POST[continueGame])) {
+        SESSION::starten();
+        $template_data['filter'] = Spiel::getSpielListe();
+        Template::render('continueGameFilter', $template_data);
+
+    } else
         //start -> "Ranking aufrufen" Button
-        if (isset($_POST[callRanking]))
-        {
-			SESSION::starten();
+        if (isset($_POST[callRanking])) {
+            SESSION::starten();
             $template_data['WinListe'] = Ranking::getMeistenSiege();
             $template_data['PunkteListe'] = Ranking::getPunkteListe();
             Template::render('moreRankings', $template_data);
         }
 
-		//start -> "Benutzerverwaltung" Button
-	if (isset($_POST[nutzerVerwaltung])){
-		SESSION::starten();
-		Template::render('login', $template_data);
-	}
-	
-	//Verzweigung auf der Login Seite mit den Buttons Login und Abbrechen
-	if (isset($_POST[login])){
-		if (Session::check_credentials($_REQUEST['username'],$_REQUEST['password']))
-			{
-				$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']),$_REQUEST['username']);
-				$template_data['user'] = $_SESSION['user'];
-				Template::render('userEdit',$template_data);
-			}
-			else
-			{
-				throw new Exception('Benutzername und Passwort stimmen nicht überein!');
-			}
-	}
+//start -> "Benutzerverwaltung" Button
+if (isset($_POST[nutzerVerwaltung])) {
+    SESSION::starten();
+    Template::render('login', $template_data);
+}
 
-	//Verzweigung auf der Nutzerverwaltungsseite mit den Buttons Nutzername ändern, Passwort ändern, Account löschen und 
+//Verzweigung auf der Login Seite mit den Buttons Login und Abbrechen
+if (isset($_POST[login])) {
+    if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
+        $_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+        $template_data['user'] = $_SESSION['user'];
+        Template::render('userEdit', $template_data);
+    } else {
+        throw new Exception('Benutzername und Passwort stimmen nicht überein!');
+    }
+}
 
-	if (isset($_POST[namenAendern])){
-		$template_data['user'] = $_SESSION['user'];
-		Template::render('changeUsername', $template_data);
-	}
-	else
-	
-	if (isset($_POST[passwortAendern])){
-		Template::render('changePassword', $template_data);
-	}
+//Verzweigung auf der Nutzerverwaltungsseite mit den Buttons Nutzername ändern, Passwort ändern, Account löschen und
 
-	
-	//Verzweigung auf der Username ändern Seite mit den Buttons Bestätigen und Abbrechen
-	if (isset($_POST[bestaetigenUsername])){
-		Benutzer::changeUsername(Benutzer::getIdZuNamen($_SESSION['user']->getName()),$_REQUEST['neuerUsername']);
-		$_SESSION['user']->setName($_REQUEST['neuerUsername']);
-		Template::render('userEdit', $template_data);
-	}
-	
-	//Verzweigung auf der Passwort ändern Seite mit den Buttons Bestätigen und Abbrechen
-	if(isset($_POST[bestaetigenPasswort])){
-		if ($_REQUEST['neuesPasswort'] == $_REQUEST['wiederholungPasswort']){
-			$hash = password_hash($_REQUEST['neuesPasswort'], PASSWORD_DEFAULT);
-			Benutzer::changePassword(Benutzer::getIdZuNamen($_SESSION['user']->getName()),$hash);
-			Template::render('userEdit', $template_data);
-		}
-		else
-		{	
-			throw new Exception('Passwörter stimmen nicht überein');
-		}
-	}
-		
-	if (isset($_POST[abbrechen])){
-		Template::render('userEdit', $template_data);
-	}
+if (isset($_POST[namenAendern])) {
+    $template_data['user'] = $_SESSION['user'];
+    Template::render('changeUsername', $template_data);
+} else
+
+    if (isset($_POST[passwortAendern])) {
+        Template::render('changePassword', $template_data);
+    }
+
+
+//Verzweigung auf der Username ändern Seite mit den Buttons Bestätigen und Abbrechen
+if (isset($_POST[bestaetigenUsername])) {
+    Benutzer::changeUsername(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $_REQUEST['neuerUsername']);
+    $_SESSION['user']->setName($_REQUEST['neuerUsername']);
+    Template::render('userEdit', $template_data);
+}
+
+//Verzweigung auf der Passwort ändern Seite mit den Buttons Bestätigen und Abbrechen
+if (isset($_POST[bestaetigenPasswort])) {
+    if ($_REQUEST['neuesPasswort'] == $_REQUEST['wiederholungPasswort']) {
+        $hash = password_hash($_REQUEST['neuesPasswort'], PASSWORD_DEFAULT);
+        Benutzer::changePassword(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $hash);
+        Template::render('userEdit', $template_data);
+    } else {
+        throw new Exception('Passwörter stimmen nicht überein');
+    }
+}
+
+if (isset($_POST[abbrechen])) {
+    Template::render('userEdit', $template_data);
+}
 
 //Verzweigung auf der Neues Spiel Seite mit den Buttons Weiterer Spieler, Spiel starten und Abbrechen
 //neues Spiel -> "Weiterer Spieler" Button
@@ -145,30 +135,29 @@ if (isset($_POST[weiterer_spieler])) {
                 $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
                 $i = $i + 1;
             endforeach;
-			
+
             $template_data['Spiel'] = $_SESSION['Spiel'];
             Template::render('actualGame', $template_data);
         } else {
-        if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
-            $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
-            $_SESSION['Spiel']->persistiereSpiel();
-            $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
+            if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
+                $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+                $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+                $_SESSION['Spiel']->persistiereSpiel();
+                $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
 
-            $i = 1;
-            if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
-                Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
-                $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
-                $i = $i + 1;
-            endforeach;
+                $i = 1;
+                if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
+                    Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
+                    $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
+                    $i = $i + 1;
+                endforeach;
 
-            $template_data['Spiel'] = $_SESSION['Spiel'];
-            Template::render('actualGame', $template_data);
+                $template_data['Spiel'] = $_SESSION['Spiel'];
+                Template::render('actualGame', $template_data);
+            } else {
+                throw new Exception('Benutzername und Password stimmen nicht überein!');
+            }
         }
-        else{
-            throw new Exception('Benutzername und Password stimmen nicht überein!');
-        }
-		}
 
 
     }
@@ -177,22 +166,22 @@ if (isset($_POST[weiterer_spieler])) {
 //Verzweigung auf der continueGameFilter Seite mit den Buttons Spiel fortsetzen und Hauptmenü
 //continue Game Filter -> "Spiel fortsetzen" Button
 if (isset($_POST[spiel_fortsetzen])) {
-	//$_SESSION['Spiel'] = new Spiel();
-	$_SESSION['Spiel']->getSpiel($_REQUEST['werte']);
-	$_SESSION['anzahlSpielerFortgesetzt'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId());
+    //$_SESSION['Spiel'] = new Spiel();
+    $_SESSION['Spiel']->getSpiel($_REQUEST['werte']);
+    $_SESSION['anzahlSpielerFortgesetzt'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId());
 
-	$_SESSION['einzuloggenderSpieler'] = 0;
+    $_SESSION['einzuloggenderSpieler'] = 0;
 
     $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
-	$template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
+    $template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
     Template::render('continueGameLogin', $template_data);
 }
 
 //Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler, Spiel fortsetzen und Hauptmenü
 if (isset($_POST[naechster_spieler])) {
-	$template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
-	$_SESSION['einzuloggenderSpieler']++;
-	$template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
+    $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
+    $_SESSION['einzuloggenderSpieler']++;
+    $template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
     Template::render('continueGameLogin', $template_data);
 } else
     if (isset($_POST[spiel_fortsetzen2])) {
@@ -206,12 +195,12 @@ if (isset($_POST[naechster_spieler])) {
     }
 
 //Spiel beenden auf der Spielseite
-if (isset($_POST[spiel_beenden])){
-	SESSION::logout();
-	$spiel = new Spiel();
+if (isset($_POST[spiel_beenden])) {
+    SESSION::logout();
+    $spiel = new Spiel();
     $_SESSION['Spiel'] = $spiel;
     $template_data['Spiel'] = $_SESSION['Spiel'];
-	$_SESSION['anzahlSpieler'] = 0;
+    $_SESSION['anzahlSpieler'] = 0;
     Template::render('start', $template_data);
 }
 
