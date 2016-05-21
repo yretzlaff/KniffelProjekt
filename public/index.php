@@ -228,11 +228,18 @@ if (isset($_POST[filter_anwenden])) {
         $s3match = false;
         $s4match = false;
 
+        try {
+            new DateTime($alleSpiele[$i]['Startdatum']);
+            new DateTime($datum);
+        } catch (Exception $e)  {
+            $datum = null;
+        }
+
 
         if (($spielID != null && $alleSpiele[$i]['s_id'] == $spielID) || $spielID== null) {
             $idmatch = true;
         }
-        if (($datum != null && $alleSpiele[$i]['Startdatum'] == $datum) || $datum== null) {
+        if (($datum != null && new Datetime($alleSpiele[$i]['Startdatum']) == new Datetime($datum)) || $datum== null) {
             $datmatch = true;
         }
         if (($anzspieler != null && $alleSpiele[$i]['anz'] == $anzspieler) || $anzspieler== null) {

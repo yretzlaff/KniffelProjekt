@@ -36,13 +36,13 @@
             </tr>
             <tr>
                 <th></th>
-                <th><input name="spielid" placeholder="Spiel ID" value="<?= $filter['id'] ?>"></th>
-                <th><input name="spieldatum" placeholder="Datum" value="<?= $filter['dat'] ?>"></th>
-                <th><input name="anzSpieler" placeholder="Anzahl Spieler" value="<?= $filter['anz'] ?>"></th>
-                <th><input name="spieler1" placeholder="Spieler 1" value="<?= $filter['s1'] ?>"></th>
-                <th><input name="spieler2" placeholder="Spieler 2" value="<?= $filter['s2'] ?>"></th>
-                <th><input name="spieler3" placeholder="Spieler 3" value="<?= $filter['s3'] ?>"></th>
-                <th><input name="spieler4" placeholder="Spieler 4" value="<?= $filter['s4'] ?>"></th>
+                <th><input type="search" name="spielid" placeholder="Spiel ID" value="<?= $filter['id'] ?>"></th>
+                <th><input type="date" name="spieldatum" placeholder="Datum" value="<?= $filter['dat'] ?>"></th>
+                <th><input type="search" name="anzSpieler" placeholder="Anzahl Spieler" value="<?= $filter['anz'] ?>"></th>
+                <th><input type="search" name="spieler1" placeholder="Spieler 1" value="<?= $filter['s1'] ?>"></th>
+                <th><input type="search" name="spieler2" placeholder="Spieler 2" value="<?= $filter['s2'] ?>"></th>
+                <th><input type="search" name="spieler3" placeholder="Spieler 3" value="<?= $filter['s3'] ?>"></th>
+                <th><input type="search" name="spieler4" placeholder="Spieler 4" value="<?= $filter['s4'] ?>"></th>
             </tr>
 
             </thead>
