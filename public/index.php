@@ -168,31 +168,51 @@ if (isset($_POST[weiterer_spieler])) {
 if (isset($_POST[spiel_fortsetzen])) {
     //$_SESSION['Spiel'] = new Spiel();
     $_SESSION['Spiel']->getSpiel($_REQUEST['werte']);
-    $_SESSION['anzahlSpielerFortgesetzt'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId());
+    $_SESSION['anzahlEinzuloggenderSpieler'] = Spiel::getAnzahlSpieler($_SESSION['Spiel']->getSId())[0][anz];
+    $_SESSION['anzahlEingeloggterSpieler'] = 0;
 
-    $_SESSION['einzuloggenderSpieler'] = 0;
-
-    $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
-    $template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
+// Hier wird der erste Spieler des fortzusetzenden Spieles übergeben um ihn einzuloggen
+    $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
+    $template_data['benutzer'] = $_SESSION['benutzer'];
+    print_r($template_data['benutzer']);
     Template::render('continueGameLogin', $template_data);
 }
 
 //Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler, Spiel fortsetzen und Hauptmenü
-if (isset($_POST[naechster_spieler])) {
-    $template_data['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId());
-    $_SESSION['einzuloggenderSpieler']++;
-    $template_data['einzuloggenderSpieler'] = $_SESSION['einzuloggenderSpieler'];
-    Template::render('continueGameLogin', $template_data);
-} else
-    if (isset($_POST[spiel_fortsetzen2])) {
 
+    if (isset($_POST[spiel_weiter])) {
+
+        print_r($_SESSION['benutzer']);
+        if (Session::check_credentials($_SESSION['benutzer'], $_REQUEST['password'])) {
         // Hier Hapert's noch, den neuen Spieler ins Spiel hinzuzufügen! Morgen hier weiter
-        $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['Spiel']->getSId(), $template_data['benutzer'][0][username]));
-        $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
 
-        $template_data['Spiel'] = $_SESSION['Spiel'];
-        Template::render('actualGame', $template_data);
+            $_SESSION['anzahlEingeloggterSpieler']++;
+            $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['benutzer']), $_SESSION['benutzer']);
+            $spieler->getSpielkarte()->fetchSpielkarte($spieler->getId(),$_SESSION['Spiel']->getSId());
+            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+
+            $template_data['Spiel'] = $_SESSION['Spiel'];
+
+            print_r($_SESSION['anzahlEingeloggterSpieler']);
+            print_r($_SESSION['anzahlEinzuloggenderSpieler']);
+            if($_SESSION['anzahlEingeloggterSpieler']< $_SESSION['anzahlEinzuloggenderSpieler']){
+
+                $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
+                $template_data['benutzer'] = $_SESSION['benutzer'];
+                print_r($template_data['benutzer']);
+                Template::render('continueGameLogin', $template_data);
+
+            }else{
+
+                $template_data['Spiel'] = $_SESSION['Spiel'];
+                Template::render('actualGame', $template_data);
+            }
+
+
+    } else {
+        throw new Exception('Benutzername und Password stimmen nicht überein!');
     }
+}
 
 //Spiel beenden auf der Spielseite
 if (isset($_POST[spiel_beenden])) {

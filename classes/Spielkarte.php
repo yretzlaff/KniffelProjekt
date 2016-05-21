@@ -595,5 +595,39 @@ class Spielkarte
 
     }
 
+    public function fetchSpielkarte($u_id, $s_id){
+
+        global $dbh;
+
+        $stmt = $dbh->prepare("SELECT * FROM `spielkarte`WHERE s_id = :s_id AND u_id = :u_id");
+
+        $spielArr = array
+        (
+            s_id => $s_id,
+            u_id => $u_id
+        );
+
+        $stmt->execute($spielArr);
+
+        $geladenenDaten = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        print_r($geladenenDaten);
+        $this->einer = $geladenenDaten[0][Einer];
+        $this->zweier = $geladenenDaten[0][Zweier];
+        $this->dreier = $geladenenDaten[0][Dreier];
+        $this->vierer = $geladenenDaten[0][Vierer];
+        $this->fuenfer = $geladenenDaten[0][Fuenfer];
+        $this->sechser = $geladenenDaten[0][Sechser];
+
+        $this->dreierpasch = $geladenenDaten[0][Dreierpasch];
+        $this->viererpasch = $geladenenDaten[0][Viererpasch];
+        $this->full_house = $geladenenDaten[0][Full_House];
+        $this->kleine_strasse = $geladenenDaten[0][kleine_Strasse];
+        $this->grosse_strasse = $geladenenDaten[0][grosse_Strasse];
+        $this->kniffel = $geladenenDaten[0][Kniffel];
+        $this->chance = $geladenenDaten[0][Chance];
+
+    }
+
 
 }

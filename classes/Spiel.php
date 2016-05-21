@@ -146,7 +146,7 @@ class Spiel
 		$this->setSId($spiel[0][s_id]);
 		$this->setAktuellerSpieler($spiel[0][derzeitiger_spieler]);
 		$this->setAktuelleRunde($spiel[0][aktuelle_runde]);
-		$this->getSpielerAusDB($s_id);
+		//$this->getSpielerAusDB($s_id);
     }
 	
 	/*
