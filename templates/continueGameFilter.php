@@ -2,6 +2,10 @@
     <h1 align="center">Spiel fortsetzen</h1>
     <hr>
     
+   <label>	
+   <input type=<? if ($fehler == false){ echo "hidden";} else {echo "text";}?> name="fehler" size="131" value="Sie haben kein Spiel ausgewählt. Sie müssen ein Spiel über die Radio Buttons vor den Spielen auswählen um ein Spiel fortsetzen zu können." readonly disabled>
+   </label>
+   
     <input type="submit" name="filter_entfernen" value="Filter entfernen"
            style="float: right; margin-right : 10%;">
     <input type="submit" name="filter_anwenden" value="Filter anwenden"
