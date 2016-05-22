@@ -44,7 +44,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getEinerPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -79,7 +79,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getZweierPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -113,7 +113,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getDreierPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -148,7 +148,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getViererPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -182,7 +182,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getFuenferPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -216,7 +216,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getSechserPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -250,7 +250,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getDreierpaschPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -285,7 +285,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getViererpaschPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -320,7 +320,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getFullHousePunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -355,7 +355,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getKleineStrassePunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -390,7 +390,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getGrosseStrassePunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -425,7 +425,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getKniffelPunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -460,7 +460,7 @@ class Spielkarte
         $daten = array
         (
             wert => Punkterechner::getChancePunkte($wuerfel),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($daten);
@@ -552,7 +552,7 @@ class Spielkarte
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
 
     }
 
@@ -566,7 +566,7 @@ class Spielkarte
         $kartendaten = array
         (
             summeOben => $this->getGesamtOben(),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         $stmt->execute($kartendaten);
@@ -585,7 +585,7 @@ class Spielkarte
         $kartendaten = array
         (
             summeUnten => $this->getGesamtUnten(),
-            sk_id => $this->sk_id[0][sk_id]
+            sk_id => $this->sk_id
         );
 
         print_r($kartendaten);
@@ -611,6 +611,7 @@ class Spielkarte
 
         $geladenenDaten = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
+		$this->sk_id = $geladenenDaten[0][sk_id];
         $this->einer = $geladenenDaten[0][Einer];
         $this->zweier = $geladenenDaten[0][Zweier];
         $this->dreier = $geladenenDaten[0][Dreier];

@@ -223,13 +223,14 @@ if (isset($_POST[weiterer_spieler])) {
             $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
             $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
             $_SESSION['Spiel']->persistiereSpiel();
-            $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
+			$s_id = Spiel::getLetztesSpielinDB();
+            $_SESSION['Spiel']->setSId($s_id['s_id']);
 
             $i = 1;
-			
             if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
                 Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
-                $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
+				$sk_id = Spielkarte::getLetzteSpielkarteinDB();
+                $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
                 $i = $i + 1;
             endforeach;
 
@@ -249,12 +250,15 @@ if (isset($_POST[weiterer_spieler])) {
 				{
                 $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
                 $_SESSION['Spiel']->persistiereSpiel();
-                $_SESSION['Spiel']->setSId(Spiel::getLetztesSpielinDB());
+				$s_id = Spiel::getLetztesSpielinDB();
+				$_SESSION['Spiel']->setSId($s_id['s_id']);
 
                 $i = 1;
                 if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
-                    Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
-                    $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId(Spielkarte::getLetzteSpielkarteinDB());
+				var_dump($_SESSION['Spiel']->getSId());
+                    Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId(), $i);
+					$sk_id = Spielkarte::getLetzteSpielkarteinDB();
+                    $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
                     $i = $i + 1;
                 endforeach;
 
@@ -423,38 +427,38 @@ if (isset($_POST[spiel_fortsetzen])) {
 // Hier wird der erste Spieler des fortzusetzenden Spieles übergeben um ihn einzuloggen
     $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
     $template_data['benutzer'] = $_SESSION['benutzer'];
-    print_r($template_data['benutzer']);
+	if ($_SESSION['anzahlEingeloggterSpieler'] >= ($_SESSION['anzahlEinzuloggenderSpieler']-1))
+	{
+		$template_data['naechsterSpieler'] = true;
+	}
     Template::render('continueGameLogin', $template_data);
 	}
 }
 
-//Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler, Spiel fortsetzen und Hauptmenü
+//Verzweigung auf der continueGameLogin Seite mit den Buttons Nächster Spieler/Spiel fortsetzen und Hauptmenü
 
 if (isset($_POST[spiel_weiter])) {
 
-    print_r($_SESSION['benutzer']);
     if (Session::check_credentials($_SESSION['benutzer'], $_REQUEST['password'])) {
-        // Hier Hapert's noch, den neuen Spieler ins Spiel hinzuzufügen! Morgen hier weiter
 
         $_SESSION['anzahlEingeloggterSpieler']++;
+		var_dump($_SESSION['benutzer']);
         $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['benutzer']), $_SESSION['benutzer']);
         $spieler->getSpielkarte()->fetchSpielkarte($spieler->getId(), $_SESSION['Spiel']->getSId());
+		var_dump($spieler);
         $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
 
         $template_data['Spiel'] = $_SESSION['Spiel'];
 
-        print_r($_SESSION['anzahlEingeloggterSpieler']);
-        print_r($_SESSION['anzahlEinzuloggenderSpieler']);
+
         if ($_SESSION['anzahlEingeloggterSpieler'] < $_SESSION['anzahlEinzuloggenderSpieler']) {
 
             $_SESSION['benutzer'] = Spiel::getBenutzerZuSpiel($_SESSION['Spiel']->getSId())[$_SESSION['anzahlEingeloggterSpieler']][username];
             $template_data['benutzer'] = $_SESSION['benutzer'];
-            print_r($template_data['benutzer']);
-			if ($_SESSION['anzahlEingeloggterSpieler'] == ($_SESSION['anzahlEinzuloggenderSpieler']-1))
+			if ($_SESSION['anzahlEingeloggterSpieler'] >= ($_SESSION['anzahlEinzuloggenderSpieler']-1))
 			{
 				$template_data['naechsterSpieler'] = true;
 			}
-			var_dump($template_data);
             Template::render('continueGameLogin', $template_data);
 
         } else {
@@ -496,7 +500,6 @@ if (isset($_POST[wuerfeln])) {
 
     $_SESSION['Spiel']->getWuerfelspiel()->wuerfeln();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']);
     Template::render('actualGame', $template_data);
 
 }
@@ -505,70 +508,60 @@ if (isset($_POST[wuerfeln])) {
 if (isset($_POST[wuerfel1])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(1);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[wuerfel2])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(2);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[wuerfel3])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(3);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[wuerfel4])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(4);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[wuerfel5])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(5);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[bank1])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBecher(1);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[bank2])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBecher(2);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[bank3])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBecher(3);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[bank4])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBecher(4);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
 if (isset($_POST[bank5])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBecher(5);
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -576,7 +569,6 @@ if (isset($_POST[einer])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setEiner($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -584,7 +576,6 @@ if (isset($_POST[zweier])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setZweier($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -592,7 +583,6 @@ if (isset($_POST[dreier])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setDreier($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -600,7 +590,6 @@ if (isset($_POST[vierer])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setVierer($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -608,7 +597,6 @@ if (isset($_POST[fuenfer])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setFuenfer($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -616,7 +604,6 @@ if (isset($_POST[sechser])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setSechser($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -624,7 +611,6 @@ if (isset($_POST[dreierpasch])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setDreierpasch($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -632,7 +618,6 @@ if (isset($_POST[viererpasch])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setViererpasch($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -640,7 +625,6 @@ if (isset($_POST[fullhouse])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setFullHouse($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -648,7 +632,6 @@ if (isset($_POST[kleinestrasse])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setKleineStrasse($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -656,7 +639,6 @@ if (isset($_POST[grossestrasse])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setGrosseStrasse($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -664,7 +646,6 @@ if (isset($_POST[kniffel])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setKniffel($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
@@ -672,7 +653,6 @@ if (isset($_POST[chance])) {
     $_SESSION['Spiel']->getSpieler()[$_SESSION['Spiel']->getAktuellerSpieler()]->getSpielkarte()->setChance($_SESSION['Spiel']->getWuerfelspiel()->getWuerfel());
     $_SESSION['Spiel']->naechsterSpieler();
     $template_data['Spiel'] = $_SESSION['Spiel'];
-    print_r($template_data['Spiel']->getWuerfelspiel());
     Template::render('actualGame', $template_data);
 }
 
