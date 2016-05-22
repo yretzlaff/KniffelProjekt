@@ -143,6 +143,16 @@ class WuerfelSpiel
         return $w;
     }
 
+    /**
+     * @return int
+     */
+    public function getGeworfen()
+    {
+        return $this->geworfen;
+    }
+    
+    
+
     /*
      * Ausgabe der Würfel auf der Bank zu Testzwecken
      */

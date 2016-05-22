@@ -128,7 +128,7 @@ class Spiel
      */
     public function istWuerfelbar()
     {
-        if ($this->getBeendet() == 1)
+        if ($this->getBeendet() == 1 || !$this->getWuerfelspiel()->darfwuerfeln())
         {
             return "disabled";
         }
