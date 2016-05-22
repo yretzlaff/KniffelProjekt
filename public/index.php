@@ -9,11 +9,11 @@
 require_once '../config.php';
 
 
-// initialize variables
+// Initialisierung der Variablen
 $template_data = array();
 
 
-// Jeder Verzweigung zum Hauptmenü
+//  Verzweigung zum Hauptmenü
 if (isset($_POST[hauptmenue])) {
     SESSION::logout();
     $spiel = new Spiel();
@@ -70,6 +70,7 @@ if (isset($_POST[nutzerVerwaltung])) {
 if (isset($_POST[login])) {
 	if (isset($_REQUEST['add_user'])) 
 	{
+		//verschiedene Abfragen um auf eine gültige Eingabe zu prüfen
 		if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 		{
 			//Benutzername bereist vergeben.
@@ -105,6 +106,7 @@ if (isset($_POST[login])) {
 		}
 	} else
 	{
+		//Neuer Nutzer erzeugen Haken ist nicht gesetzt. Es werden 
 		if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
 			$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
 			$template_data['user'] = $_SESSION['user'];
