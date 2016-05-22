@@ -69,7 +69,7 @@
 
     <div class="clear"></div><br>
 
-    <? if (!empty($Spieler)) : ?>
+    <? if (!empty($Spiel->getSpieler())) : ?>
 
         <table class="usertable">
             <thead>
@@ -78,7 +78,7 @@
             </tr>
             </thead>
             <tbody>
-            <? foreach ($Spieler as $s) : ?>
+            <? foreach ($Spiel->getSpieler() as $s) : ?>
                <tr>
                     <td><?= $s->getName() ?></td>
                </tr>
