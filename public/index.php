@@ -50,8 +50,8 @@ if (isset($_POST[newGame])) {
         //start -> "Ranking aufrufen" Button
         if (isset($_POST[callRanking])) {
             SESSION::starten();
-            print_r($template_data['WinListe'] = Ranking::getMeistenSiege());
-            print_r($template_data['PunkteListe'] = Ranking::getPunkteListe());
+            $template_data['WinListe'] = Ranking::getMeistenSiege();
+            $template_data['PunkteListe'] = Ranking::getPunkteListe();
             Template::render('moreRankings', $template_data);
         }
 
@@ -78,7 +78,7 @@ if (isset($_POST[login])) {
 				//Benutzername darf nicht leer sein
 				$template_data['fehler5'] = true;
 				$template_data['user'] = $_SESSION['user'];
-				Template::render('userEdit', $template_data);						
+				Template::render('login', $template_data);						
 			}
 			else
 			{
@@ -87,7 +87,7 @@ if (isset($_POST[login])) {
 					//Benutzername darf nicht länger als 15 Zeichen sein.
 					$template_data['fehler6'] = true;
 					$template_data['user'] = $_SESSION['user'];
-					Template::render('userEdit', $template_data);					
+					Template::render('login', $template_data);					
 				}
 				else
 				{			
@@ -350,6 +350,17 @@ if (isset($_POST[weiterer_spieler])) {
                 //hat er vermutlich zuvor aus Versehen auf "weiterer Spieler" gedrückt und
                 // das spiel wird gestartet, ohne einen zusätzlichen spieler hinzuzufügen
                 if ($_SESSION['Spiel']->hatSpieler() && $_REQUEST['username'] == null) {
+					$_SESSION['Spiel']->persistiereSpiel();
+					$s_id = Spiel::getLetztesSpielinDB();
+					$_SESSION['Spiel']->setSId($s_id['s_id']);
+
+					$i = 1;
+					if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
+						Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId(), $i);
+						$sk_id = Spielkarte::getLetzteSpielkarteinDB();
+						$_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
+						$i = $i + 1;
+					endforeach;
                     $template_data['Spiel'] = $_SESSION['Spiel'];
                     Template::render('actualGame', $template_data);
                 } else {
