@@ -9,7 +9,6 @@
 }
 .rankingtable td th{
     border-bottom: 1px solid #ddd;
-	width: 33%;
 }
 
 /* template: newGame*/
@@ -25,28 +24,44 @@
 
 
 /* template: continueGameFilter */
-.filter {
+.filtertable {
+    margin-left: auto;
+    margin-right: auto;
 	border-collapse: collapse;
 	border: 1px solid black;
-	margin-left: auto;
-    margin-right: auto;
 	background-color: white;
-	overflow : auto;
+    width: 100%;
 }
+.filter{
+    max-height: 50%;
+    overflow : auto;
+}
+.filterbuttons{
+    float: right;
+}
+
+
+.tabellemittig{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
 
 
 /* template: acutual Game */
 .gametable {
 	border-collapse: collapse;
 	border: 1px solid black;
-	margin-left: 0%; 
 	background-color: white;
 	text-align: center;
 }
+
 .gametable tr td, .gametable tr th{
 	border-collapse: collapse;
 	border-bottom: 1px solid black;
-	min-width: 70;
+	min-width: 70px;
 }
 .punktetabelle{
 	float: left;
@@ -54,9 +69,7 @@
 .bank{
 	float: right;
 }
-.clear{
-	clear: both;
-}
+
 .wurfeln{
 	text-align: center;
 }
@@ -70,6 +83,9 @@
 	width: 100%;
 }
 
+
+
+
 /* template: layout */
 .layout {
 	text-align: center;
@@ -77,3 +93,11 @@
 	min-height: 90vh;
 }
 
+
+
+
+
+/*Zeilenumbruch*/
+.clear{
+    clear: both;
+}

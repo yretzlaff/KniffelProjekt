@@ -1,17 +1,18 @@
 ﻿<form action="index.php" method="post" class="changePassword">
 
-   <label for="username">
-       Akuteller Username:
-   </label>
-   <label id="username" name="username" > <?= $user->getName() ?></label>
-   
-   
-   <label for="neuerUsername">
-       Neuer Username:
-   </label>
-   <input id="neuerUsername" type="text" name="neuerUsername">
+   <div>
+       <table class="tabellemittig">
+           <tr>
+               <th>Akuteller Username: </th>
+               <th><?= $user->getName() ?></th>
+           </tr>
+           <tr>
+               <th>Neuer Username: </th>
+               <th><input id="neuerUsername" type="text" name="neuerUsername"></th>
+           </tr>
+       </table>
+   </div>
 
-	<input type="submit" name="bestaetigenUsername" value="Bestätigen">
-	
-	<input type="submit" name="abbrechen" value="Abbrechen">
+   <input type="submit" name="bestaetigenUsername" value="Bestätigen">
+   <input type="submit" name="abbrechen" value="Abbrechen">
 </form>

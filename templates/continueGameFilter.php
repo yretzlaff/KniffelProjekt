@@ -6,26 +6,14 @@
    <input type=<? if ($fehler == false){ echo "hidden";} else {echo "text";}?> name="fehler" size="131" value="Sie haben kein Spiel ausgewählt. Sie müssen ein Spiel über die Radio Buttons vor den Spielen auswählen um ein Spiel fortsetzen zu können." readonly disabled>
    </label>
    
-    <input type="submit" name="filter_entfernen" value="Filter entfernen"
-           style="float: right; margin-right : 10%;">
-    <input type="submit" name="filter_anwenden" value="Filter anwenden"
-           style="float: right; margin-right : 10%;"></br></br>
-    
+    <input type="submit" name="filter_entfernen" value="Filter entfernen" class="filterbuttons">
+    <input type="submit" name="filter_anwenden"  value="Filter anwenden"  class="filterbuttons">
 
 
-    <div>
+    <div class="clear"></div>
+    <div class="filter">
         <!-- Liste mit den begonnenen Spielen -->
-        <table class="filter">
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-            </colgroup>
+        <table class="filtertable">
             <thead>
             <tr>
                 <th></th>
@@ -68,7 +56,8 @@
 
     </div>
 
-    <div style="margin-left : 10%;">
+    <div class="clear"></div>
+    <div>
         <input type="submit" name="spiel_fortsetzen" value="Spiel fortsetzen">
         <input type="submit" name="hauptmenue" value="zurück zum Hauptmenü">
     </div>
