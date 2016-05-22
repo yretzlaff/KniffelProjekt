@@ -306,7 +306,7 @@ if (isset($_POST[weiterer_spieler])) {
 
 						$i = 1;
 						if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
-							Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
+							Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId(), $i);
 							$sk_id = Spielkarte::getLetzteSpielkarteinDB();
 							$_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
 							$i = $i + 1;

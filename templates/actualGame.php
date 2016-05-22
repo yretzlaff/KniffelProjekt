@@ -5,7 +5,7 @@
 	<div class="punktetabelle">
 		<table class="gametable">
 	<tr>
-		<th><!-- Spalte für Bezeichnungen --></th>
+		<th><!-- Spalte für Bezeichnungen -->Spiel-ID: <?= $Spiel->getSId()?> </th>
 		<th><!-- Spalte für Knöpfe --></th>
 		<? if (!empty($Spiel->getSpieler())) foreach ($Spiel->getSpieler() as $test) : ?>
 		<th> <?= ($test->getName()); ?></th> <!-- Spalte für Spieler 1 -->
