@@ -42,8 +42,7 @@ class WuerfelSpiel
     public function moveToBank($wuerfelnr)
     {
         if (isset($this->becher[$wuerfelnr])) {
-            echo("<br />\n");
-            echo("<br />\nSetze Würfel " . $wuerfelnr . " auf die Bank!");
+
             $this->bank[$wuerfelnr] = $this->becher[$wuerfelnr];
             $this->becher[$wuerfelnr] = null;
         }
@@ -55,8 +54,7 @@ class WuerfelSpiel
     public function moveToBecher($wuerfelnr)
     {
         if (isset($this->bank[$wuerfelnr])) {
-            echo("<br />\n");
-            echo("<br />\nSetze Würfel " . $wuerfelnr . " in den Becher!");
+
             $this->becher[$wuerfelnr] = $this->bank[$wuerfelnr];
             $this->bank[$wuerfelnr] = null;
         }
