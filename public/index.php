@@ -73,10 +73,30 @@ if (isset($_POST[login])) {
 		}
 		else
 		{
-			Session::create_user($_REQUEST['username'], $_REQUEST['password']);
-			$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-			$template_data['user'] = $_SESSION['user'];
-			Template::render('userEdit', $template_data);
+			if (empty($_REQUEST['username']))
+			{
+				//Benutzername darf nicht leer sein
+				$template_data['fehler5'] = true;
+				$template_data['user'] = $_SESSION['user'];
+				Template::render('userEdit', $template_data);						
+			}
+			else
+			{
+				if (strlen($_REQUEST['username']) > 15)
+				{
+					//Benutzername darf nicht länger als 15 Zeichen sein.
+					$template_data['fehler6'] = true;
+					$template_data['user'] = $_SESSION['user'];
+					Template::render('userEdit', $template_data);					
+				}
+				else
+				{			
+					Session::create_user($_REQUEST['username'], $_REQUEST['password']);
+					$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+					$template_data['user'] = $_SESSION['user'];
+					Template::render('userEdit', $template_data);
+				}
+			}
 		}
 	} else
 	{
@@ -124,9 +144,29 @@ if (isset($_POST[bestaetigenUsername])) {
 	}
 	else
 	{
-    Benutzer::changeUsername(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $_REQUEST['neuerUsername']);
-    $_SESSION['user']->setName($_REQUEST['neuerUsername']);
-    Template::render('userEdit', $template_data);
+		if (empty($_REQUEST['username']))
+		{
+			//Benutzername darf nicht leer sein
+			$template_data['fehler5'] = true;
+			$template_data['user'] = $_SESSION['user'];
+			Template::render('changeUsername', $template_data);							
+		}
+		else
+		{
+			if (strlen($_REQUEST['username']) > 15)
+			{
+				//Benutzername darf nicht länger als 15 Zeichen sein.
+				$template_data['fehler6'] = true;
+				$template_data['user'] = $_SESSION['user'];
+				Template::render('changeUsername', $template_data);							
+			}
+			else
+			{			
+				Benutzer::changeUsername(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $_REQUEST['neuerUsername']);
+				$_SESSION['user']->setName($_REQUEST['neuerUsername']);
+				Template::render('userEdit', $template_data);
+			}
+		}	
 	}
 }
 
@@ -152,22 +192,42 @@ if (isset($_POST[abbrechen])) {
 if (isset($_POST[weiterer_spieler])) {
     if (!$_SESSION['Spiel']->istSpielVoll()) {
         if (isset($_REQUEST['add_user'])) {
-			if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
+			if (empty($_REQUEST['username']))
 			{
-				//Benutzername bereist vergeben.
-				$template_data['fehler3'] = true;
+				//Benutzername darf nicht leer sein
+				$template_data['fehler5'] = true;
 				$template_data['Spiel'] = $_SESSION['Spiel'];
-				Template::render('newGame', $template_data);			
+				Template::render('newGame', $template_data);						
 			}
 			else
-			{				
-            Session::create_user($_REQUEST['username'], $_REQUEST['password']);
-            $_SESSION['anzahlSpieler']++;
-            $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
-            $template_data['Spiel'] = $_SESSION['Spiel'];
-			$template_data['Spieler'] = $_SESSION['Spiel']->getSpieler();
-            Template::render('newGame', $template_data);
+			{
+				if (strlen($_REQUEST['username']) > 15)
+				{
+					//Benutzername darf nicht länger als 15 Zeichen sein.
+					$template_data['fehler6'] = true;
+					$template_data['Spiel'] = $_SESSION['Spiel'];
+					Template::render('newGame', $template_data);						
+				}
+				else
+				{			
+					if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
+					{
+						//Benutzername bereist vergeben.
+						$template_data['fehler3'] = true;
+						$template_data['Spiel'] = $_SESSION['Spiel'];
+						Template::render('newGame', $template_data);			
+					}
+					else
+					{				
+					Session::create_user($_REQUEST['username'], $_REQUEST['password']);
+					$_SESSION['anzahlSpieler']++;
+					$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+					$_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+					$template_data['Spiel'] = $_SESSION['Spiel'];
+					$template_data['Spieler'] = $_SESSION['Spiel']->getSpieler();
+					Template::render('newGame', $template_data);
+					}
+				}
 			}
         } else {
             if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
@@ -217,27 +277,48 @@ if (isset($_POST[weiterer_spieler])) {
 				Template::render('newGame', $template_data);			
 			}
 			else
-			{				
-            Session::create_user($_REQUEST['username'], $_REQUEST['password']);
-            $_SESSION['anzahlSpieler']++;
-            $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
-            $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
-            $_SESSION['Spiel']->persistiereSpiel();
-			$s_id = Spiel::getLetztesSpielinDB();
-            $_SESSION['Spiel']->setSId($s_id['s_id']);
+			{
+				if (empty($_REQUEST['username']))
+				{
+					//Benutzername darf nicht leer sein
+					$template_data['fehler5'] = true;
+					$template_data['Spiel'] = $_SESSION['Spiel'];
+					Template::render('newGame', $template_data);						
+				}
+				else
+				{
+					if (strlen($_REQUEST['username']) > 15)
+					{
+						//Benutzername darf nicht länger als 15 Zeichen sein.
+						$template_data['fehler6'] = true;
+						$template_data['Spiel'] = $_SESSION['Spiel'];
+						Template::render('newGame', $template_data);						
+					}
+					else
+					{				
+						Session::create_user($_REQUEST['username'], $_REQUEST['password']);
+						$_SESSION['anzahlSpieler']++;
+						$spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
+						$_SESSION['Spiel']->hinzufuegenSpieler($spieler);
+						$_SESSION['Spiel']->persistiereSpiel();
+						$s_id = Spiel::getLetztesSpielinDB();
+						$_SESSION['Spiel']->setSId($s_id['s_id']);
 
-            $i = 1;
-            if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
-                Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
-				$sk_id = Spielkarte::getLetzteSpielkarteinDB();
-                $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
-                $i = $i + 1;
-            endforeach;
+						$i = 1;
+						if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
+							Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId()[0][s_id], $i);
+							$sk_id = Spielkarte::getLetzteSpielkarteinDB();
+							$_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
+							$i = $i + 1;
+						endforeach;
 
-            $template_data['Spiel'] = $_SESSION['Spiel'];
-            Template::render('actualGame', $template_data);
+						$template_data['Spiel'] = $_SESSION['Spiel'];
+						Template::render('actualGame', $template_data);
+						
+					}
+				}
 			}
-        } else {
+		} else {
             if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
                 $spieler = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
 				if ($_SESSION['Spiel']->istSpielerSchonAngemeldet($spieler))

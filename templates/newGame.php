@@ -34,6 +34,26 @@
                value="Benutzer ist breits zum Spiel angemeldet. Bitte wählen Sie einen anderen." readonly
                disabled>
     </label>
+
+    <label>
+        <input type=<? if ($fehler5 == false) {
+            echo "hidden";
+        } else {
+            echo "text";
+        } ?> name="fehler" size="61"
+               value="Benutzername darf nicht leer sein. Bitte wählen Sie einen anderen." readonly
+               disabled>
+    </label>
+	
+    <label>
+        <input type=<? if ($fehler6 == false) {
+            echo "hidden";
+        } else {
+            echo "text";
+        } ?> name="fehler" size="78"
+               value="Benutzername darf nicht länger als 15 Zeichen sein. Bitte wählen Sie einen anderen." readonly
+               disabled>
+    </label>	
     <div class="clear"></div>
 
 
@@ -41,7 +61,7 @@
         <table class="tabellemittig">
             <tr>
                 <th>Login: </th>
-                <th><input id="username" type="text" name="username" placeholder="Benutzernamen"></th>
+                <th><input id="username" type="text" name="username" placeholder="Benutzername"></th>
             </tr>
             <tr>
                 <th>Passwort: </th>
