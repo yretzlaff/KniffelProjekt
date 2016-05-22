@@ -2,10 +2,7 @@
 
 /**
  * Ein Würfel beinhaltet nur einen Wert und eine Methode um einen neuen Wert zu Würfeln
- * 
- * User: Hendrik
- * Date: 15.05.2016
- * Time: 12:48
+ *
  */
 class Wuerfel
 {
@@ -31,6 +28,9 @@ class Wuerfel
         $this->wert = $wert;
     }
     
+    /*
+     * Diese Methode erzeugt zufallsbasiert den Augenwert des Würfels
+     */
     public function wuerfeln()  {
         $this->setWert(rand(1,Wuerfel::MAXAUGENZAHL));
     }

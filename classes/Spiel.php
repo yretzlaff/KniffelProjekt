@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * In der Klasse Spiel werden die Logiken des Kniffel-Spiels abgewickelt.
+ * Dazu zählt beispielsweise ein Spiel zu beenden oder eine Runde weiterzusetzen.
+ *
+ */
+
 class Spiel
 {
     //Abhängig von der ANzahl der Zeilen auf einer Spielkarte (aktuell 13)

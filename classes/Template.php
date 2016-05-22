@@ -1,15 +1,17 @@
 ﻿<?php
 
 class Template {
+    
+    //Das Methode bekommt ein Template und benötigte Daten übergeben und zeigt dann das passende Template an
+    
     function render_partial($template_path, $data = array())
     {
-        // registered passed variables as local variables
         extract($data);
 
-        // load passed template and store contents for usage in layout
+        // Laden des Templates und speichern der Inhalte 
         ob_start();
        include(BASEDIR . '/templates/' . $template_path .'.php');
-       // include('C:/xampp/htdocs/phpprakt/KniffelProjekt/templates/' . $template_path .'.php');
+       
         return ob_get_clean();
     }
 
@@ -18,7 +20,7 @@ class Template {
         $template = new Template();
         $content_for_layout = $template->render_partial($template_path, $data);
 
-        // load and show layout
+        // Layout laden und erzeugen
         include(BASEDIR . '/templates/layout.php');
 
     }

@@ -4,10 +4,6 @@
  * Helferklasse zur Punkteberechnung
  * Bietet für jedes Feld eine statische Methode, um die Punkte für das übergebene Würfelbild zu ermitteln.
  *
- * Created by PhpStorm.
- * User: anwender
- * Date: 15.05.2016
- * Time: 18:49
  */
 class Punkterechner
 {

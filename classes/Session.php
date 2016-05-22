@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Hier werden sessionrelevante Funktionen abgebildet.
+ * Beispielsweise das einloggen von Usern auf Basis der DB.
+ *
+ */
+
 class Session {
     public static function check_credentials($user, $password)
     {

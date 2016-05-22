@@ -1,5 +1,10 @@
 ﻿<?php
 
+/**
+ *Die Klasse Benutzer dient der Abbildung aller Funktionen der Nutzerverwaltung.
+ * Die Funktionen greifen auf die Datenbank zu und sind als statisch deklariert.
+ */
+
 class Benutzer
 {
     public static function createUser($nutzerdaten)

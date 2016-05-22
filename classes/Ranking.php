@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *Hier werden alle ranking-relevanten Funktionen abgebildet.
+ * Es erfolgen die Datenbankzugriffe, um die Rankings zu ermitteln.
+ *
+ */
+
 class Ranking
 {
 

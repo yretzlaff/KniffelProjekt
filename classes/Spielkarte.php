@@ -6,9 +6,6 @@
  * Aus den Würfeln wird mithilfe der Klasse Punkterechner die Punktzahl für dieses Feld errechnet, 
  * die dann im entsprechenden Attribut gespeichert wird.
  *
- * User: Hendrik
- * Date: 15.05.2016
- * Time: 18:14
  */
 class Spielkarte
 {
@@ -454,7 +451,7 @@ class Spielkarte
 
         $stmt->execute($daten);
     }
-
+    //Überprüft ob der Wert gesetzt ist, um die entsprechenden Buttons zu disablen
     public function isSetChance(){
         if($this->chance !== null){
             return "disabled";
@@ -531,6 +528,9 @@ class Spielkarte
         $stmt->execute($kartendaten);
     }
 
+    /*
+     * Liefert die zuletzt gespeicherte Spielkarte aus der DB
+     */
     public static function getLetzteSpielkarteinDB(){
 
         global $dbh;
@@ -581,6 +581,9 @@ class Spielkarte
 
     }
 
+    /*
+     * Hier wird eine persistierte Spielkarte aus der Datenbank gelesen und in das Objekt übertragen
+     */
     public function fetchSpielkarte($u_id, $s_id){
 
         global $dbh;

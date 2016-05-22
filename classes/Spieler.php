@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Ein SPieler hat eine eigene Spielkarte, auf der die Punkte gespeichert werden und testweise einen Namen zur Unterscheidung
- * User: Hendrik
- * Date: 15.05.2016
- * Time: 18:13
+ * Ein Spieler hat eine eigene Spielkarte, auf der die Punkte gespeichert werden und einen Namen zur Unterscheidung
  */
 class Spieler
 {
@@ -12,6 +9,9 @@ class Spieler
     private $spielkarte;
     private $id;
 
+    /*
+     * Konstruktor der Klasse Spieler
+     */
     public function __construct($id, $name)
     {
         require_once("Spielkarte.php");

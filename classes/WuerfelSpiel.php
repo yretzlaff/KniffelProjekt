@@ -4,9 +4,6 @@
  * Die Klasse Wuerfelspiel managed einen Spielzug mit 3 Wurfversuchen.
  * Dabei können Würfel zwischen Bank und Becher hin und her getauscht werden.
  *
- * User: Hendrik
- * Date: 15.05.2016
- * Time: 14:17
  */
 class WuerfelSpiel
 {
@@ -71,8 +68,6 @@ class WuerfelSpiel
     public function wuerfeln()
     {
         if ($this->darfwuerfeln()) {
-            echo("<br />\n ");
-            echo("<br />\n Neu Würfeln!");
 
             for ($i = 1; $i <= WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
                 if (isset($this->becher[$i])) {
@@ -149,40 +144,6 @@ class WuerfelSpiel
     public function getGeworfen()
     {
         return $this->geworfen;
-    }
-    
-    
-
-    /*
-     * Ausgabe der Würfel auf der Bank zu Testzwecken
-     */
-    public function printBank()
-    {
-        echo("<br />\n ");
-
-        for ($i = 1; $i <= WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
-            if (isset($this->getBank()[$i])) {
-                echo("<br />\n Bank " . $i . ": " . $this->getBank()[$i]->getWert());
-            } else {
-                echo("<br />\n Bank " . $i . ": ");
-            }
-        }
-    }
-
-    /*
-     * Ausgabe der Würfel im Becher zu Testzwecken
-     */
-    public function printBecher()
-    {
-        echo("<br />\n ");
-
-        for ($i = 1; $i <= WuerfelSpiel::ANZAHLWUERFEL; $i = $i + 1) {
-            if (isset($this->getBecher()[$i])) {
-                echo("<br />\n Becher " . $i . ": " . $this->getBecher()[$i]->getWert());
-            } else {
-                echo("<br />\n Becher " . $i . ": ");
-            }
-        }
     }
 
 }
