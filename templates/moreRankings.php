@@ -14,13 +14,15 @@
 		</thead>
 
 		<tbody>
-		<? if (!empty($WinListe)) for ($i = 0; i < 10; $i++) { ?>
+		<? $i =1;?>
+		<? if (!empty($WinListe)) foreach ($WinListe as $Wins) { ?>
 			<tr>				
-				<td><? print($i + 1 . ".") ?></td>                
-				<td><? print($WinListe[$i]['Username']) ?></td>
-				<td><? print($WinListe[$i]['Anzahl']) ?></td>
+				<td><? print($i . ".") ?></td>
+				<td><? print($Wins['Username']) ?></td>
+				<td><? print($Wins['Anzahl']) ?></td>
 			</tr>
-		<? } ?>
+			<? $i++;?>
+		<?  }  ?>
 		</tbody>
 			
 			

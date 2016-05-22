@@ -50,8 +50,8 @@ if (isset($_POST[newGame])) {
         //start -> "Ranking aufrufen" Button
         if (isset($_POST[callRanking])) {
             SESSION::starten();
-            $template_data['WinListe'] = Ranking::getMeistenSiege();
-            $template_data['PunkteListe'] = Ranking::getPunkteListe();
+            print_r($template_data['WinListe'] = Ranking::getMeistenSiege());
+            print_r($template_data['PunkteListe'] = Ranking::getPunkteListe());
             Template::render('moreRankings', $template_data);
         }
 
@@ -336,7 +336,6 @@ if (isset($_POST[weiterer_spieler])) {
 
                 $i = 1;
                 if (!empty($_SESSION['Spiel']->getSpieler())) foreach ($_SESSION['Spiel']->getSpieler() as $test) :
-				var_dump($_SESSION['Spiel']->getSId());
                     Spielkarte::persistiereSpielkarte($test->getId(), $_SESSION['Spiel']->getSId(), $i);
 					$sk_id = Spielkarte::getLetzteSpielkarteinDB();
                     $_SESSION['Spiel']->getSpieler()[$i]->getSpielkarte()->setSkId($sk_id['sk_id']);
@@ -523,10 +522,8 @@ if (isset($_POST[spiel_weiter])) {
     if (Session::check_credentials($_SESSION['benutzer'], $_REQUEST['password'])) {
 
         $_SESSION['anzahlEingeloggterSpieler']++;
-		var_dump($_SESSION['benutzer']);
         $spieler = new Spieler(Benutzer::getIdZuNamen($_SESSION['benutzer']), $_SESSION['benutzer']);
         $spieler->getSpielkarte()->fetchSpielkarte($spieler->getId(), $_SESSION['Spiel']->getSId());
-		var_dump($spieler);
         $_SESSION['Spiel']->hinzufuegenSpieler($spieler);
 
         $template_data['Spiel'] = $_SESSION['Spiel'];

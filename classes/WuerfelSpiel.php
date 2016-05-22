@@ -187,19 +187,3 @@ class WuerfelSpiel
 
 }
 
-/*
- * Kleine Funktionstests zu Simulationszwecken
- */
-
-/*
-$spiel = new WuerfelSpiel();
-$spiel->printBecher();  //Würfelbecher ohne Würfel
-$spiel->wuerfeln();     //Erster Wurf
-$spiel->printBecher();
-$spiel->wuerfeln();     //Zweiter Wurf
-$spiel->printBecher();
-$spiel->wuerfeln();     //Dritter Wurf
-$spiel->printBecher();
-$spiel->wuerfeln();     //Versuch eines vierten Wurfs
-$spiel->printBecher();
-*/

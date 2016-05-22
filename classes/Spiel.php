@@ -265,27 +265,6 @@ class Spiel
     }
     
 
-	
-    /*
-     * Testmethode zur Simulation eines Spiels
-     */
-    public function spielen()
-    {
-        $this->wuerfelspiel->wuerfeln();
-        $this->wuerfelspiel->moveToBank(1);
-        $this->wuerfelspiel->moveToBank(3);
-        $this->wuerfelspiel->wuerfeln();
-        $this->wuerfelspiel->moveToBank(2);
-        $this->wuerfelspiel->moveToBank(4);
-        $this->wuerfelspiel->wuerfeln();
-        $this->wuerfelspiel->printBecher();
-        $this->wuerfelspiel->printBank();
-        $this->spieler[$this->aktuellerSpieler]->getSpielkarte()->setVierer($this->wuerfelspiel->getWuerfel());
-        echo("<br />\nVierer-Punkte: " . $this->spieler[$this->aktuellerSpieler]->getSpielkarte()->getVierer());
-        $this->naechsterSpieler();
-        $this->wuerfelspiel->printBecher();
-    }
-
 
     public static function getBenutzerZuSpiel($spiel)
     {
@@ -384,7 +363,6 @@ class Spiel
 				spieler	=> $this->getAktuellerSpieler(),
 				s_id 	=> $this->getSId()
 		);
-        print_r($spielArr);
 
         $stmt->execute($spielArr);
 
@@ -459,10 +437,9 @@ class Spiel
 			$stmt->execute($spielArr);
 
 			$ergebnis = $stmt->fetch(PDO::FETCH_ASSOC);
-			var_dump($ergebnis);
 			if ($u_id == $ergebnis['u_id'])
 			{
-				echo "abcde";
+				
 				$stmt = $dbh->prepare("UPDATE user
 										SET spielerscore = (spielerscore + Round((:gesSumme / 10), 0))
 										WHERE id = :u_id");

@@ -47,8 +47,6 @@ class Spielkarte
             sk_id => $this->sk_id
         );
 
-        print_r($daten);
-
         $stmt->execute($daten);
 
 
@@ -81,8 +79,7 @@ class Spielkarte
             wert => Punkterechner::getZweierPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
     }
@@ -115,8 +112,7 @@ class Spielkarte
             wert => Punkterechner::getDreierPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -150,8 +146,7 @@ class Spielkarte
             wert => Punkterechner::getViererPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
     }
@@ -185,7 +180,6 @@ class Spielkarte
             sk_id => $this->sk_id
         );
 
-        print_r($daten);
 
         $stmt->execute($daten);
     }
@@ -218,8 +212,7 @@ class Spielkarte
             wert => Punkterechner::getSechserPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
     }
@@ -252,8 +245,7 @@ class Spielkarte
             wert => Punkterechner::getDreierpaschPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -288,7 +280,7 @@ class Spielkarte
             sk_id => $this->sk_id
         );
 
-        print_r($daten);
+    
 
         $stmt->execute($daten);
 
@@ -322,8 +314,7 @@ class Spielkarte
             wert => Punkterechner::getFullHousePunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -357,8 +348,7 @@ class Spielkarte
             wert => Punkterechner::getKleineStrassePunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -392,8 +382,7 @@ class Spielkarte
             wert => Punkterechner::getGrosseStrassePunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -427,8 +416,7 @@ class Spielkarte
             wert => Punkterechner::getKniffelPunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
 
@@ -462,8 +450,7 @@ class Spielkarte
             wert => Punkterechner::getChancePunkte($wuerfel),
             sk_id => $this->sk_id
         );
-
-        print_r($daten);
+        
 
         $stmt->execute($daten);
     }
@@ -587,8 +574,7 @@ class Spielkarte
             summeUnten => $this->getGesamtUnten(),
             sk_id => $this->sk_id
         );
-
-        print_r($kartendaten);
+        
 
         $stmt->execute($kartendaten);
 
