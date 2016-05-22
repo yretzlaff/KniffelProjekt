@@ -60,8 +60,6 @@ class Spiel
     public function naechsteRunde()
     {
         $this->aktuelleRunde++;
-		var_dump($this->aktuelleRunde);
-		var_dump($this->s_id);
 		$this->persistiereRunde();
         if ($this->getAktuelleRunde() > Spiel::MAXANZAHLRUNDEN) {
             $this->spielBeenden();
@@ -79,16 +77,15 @@ class Spiel
 		
 		$spiel = array
 		(
-				s_id => $this->s_id[0][s_id]
+				s_id => $this->s_id
 		);
 
 		$stmt->execute($spiel);
 		$this->setBeendet(true);
         foreach ($this->getSpieler() AS $spieler):
-            print_r($spieler->getSpielkarte()->getSkId());
             $spieler->getSpielkarte()->persistiereSummeOben();
             $spieler->getSpielkarte()->persistiereSummeUnten();
-            
+            $this->updateScore($spieler->getId(), $this->getSId());
             
         endforeach;    
     }
@@ -427,13 +424,73 @@ class Spiel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
+	
+	public static function updateScore($u_id, $s_id)
+	{
+
+        global $dbh;
+		$stmt = $dbh->prepare("SELECT COUNT(*) as anzSpieler
+								FROM spiele as s, spielkarte as sk
+								WHERE sk.s_id = s.s_id AND
+								s.s_id = :s_id");
+								
+		$spielArr = array
+		(
+			s_id => $s_id
+		);
+		
+        $stmt->execute($spielArr);
+
+		$ergebnis = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if ($ergebnis['anzSpieler'] > 1)
+		{
+
+			$stmt = $dbh->prepare("SELECT u_id, MAX(summe_oben+summe_unten) as gesSumme
+									 FROM  spielkarte 
+									where s_id = :s_id
+								 Group by U_id");
+
+			$spielArr = array
+			(
+				s_id => $s_id
+			);
+			
+			$stmt->execute($spielArr);
+
+			$ergebnis = $stmt->fetch(PDO::FETCH_ASSOC);
+			var_dump($ergebnis);
+			if ($u_id == $ergebnis['u_id'])
+			{
+				echo "abcde";
+				$stmt = $dbh->prepare("UPDATE user
+										SET spielerscore = (spielerscore + Round((:gesSumme / 10), 0))
+										WHERE id = :u_id");
+
+				$spielArr = array
+				(
+					gesSumme 	=> $ergebnis['gesSumme'],
+					u_id 		=> $u_id
+				);
+				
+				$stmt->execute($spielArr);			
+			}
+			else
+			{
+				$stmt = $dbh->prepare("UPDATE user
+										SET spielerscore = (spielerscore - Round((:gesSumme / 10), 0))
+										WHERE id = :u_id");
+
+				$spielArr = array
+				(
+					gesSumme 	=> $ergebnis['gesSumme'],			
+					u_id 		=> $u_id
+				);
+				
+				$stmt->execute($spielArr);
+			}
+		}
+
+    }
 
 }
-
-/**
- * Funktionstest
- 
-$spiel = new Spiel();
-$spiel->spielen();
-
-**/

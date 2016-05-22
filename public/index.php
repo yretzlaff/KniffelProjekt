@@ -144,7 +144,7 @@ if (isset($_POST[bestaetigenUsername])) {
 	}
 	else
 	{
-		if (empty($_REQUEST['username']))
+		if (empty($_REQUEST['neuerUsername']))
 		{
 			//Benutzername darf nicht leer sein
 			$template_data['fehler5'] = true;
@@ -153,7 +153,7 @@ if (isset($_POST[bestaetigenUsername])) {
 		}
 		else
 		{
-			if (strlen($_REQUEST['username']) > 15)
+			if (strlen($_REQUEST['neuerUsername']) > 15)
 			{
 				//Benutzername darf nicht länger als 15 Zeichen sein.
 				$template_data['fehler6'] = true;
