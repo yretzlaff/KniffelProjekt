@@ -45,7 +45,7 @@ class Spiel
      */
     public function naechsterSpieler()
     {
-        $this->setAktuellerSpieler($this->getAktuellerSpieler()+1);
+        $this->aktuellerSpieler++;
         if ($this->getAktuellerSpieler() > count($this->spieler)) {
             $this->setAktuellerSpieler(1);
             $this->naechsteRunde();
@@ -59,10 +59,11 @@ class Spiel
      */
     public function naechsteRunde()
     {
-        $this->setAktuelleRunde($this->getAktuelleRunde()+1);
-		print_r($this->getAktuelleRunde());
+        $this->aktuelleRunde++;
+		var_dump($this->aktuelleRunde);
+		var_dump($this->s_id);
 		$this->persistiereRunde();
-        if ($this->getAktuelleRunde > Spiel::MAXANZAHLRUNDEN) {
+        if ($this->getAktuelleRunde() > Spiel::MAXANZAHLRUNDEN) {
             $this->spielBeenden();
         }
     }
@@ -352,7 +353,7 @@ class Spiel
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
 
     }
 	
@@ -384,7 +385,7 @@ class Spiel
 		$spielArr = array
 		(
 				spieler	=> $this->getAktuellerSpieler(),
-				s_id 	=> $this->getSId()[0]['s_id']
+				s_id 	=> $this->getSId()
 		);
         print_r($spielArr);
 
@@ -402,7 +403,7 @@ class Spiel
 		$spielArr = array
 		(
 				runde	=> $this->getAktuelleRunde(),
-				s_id 	=> $this->getSId()[0]['s_id']
+				s_id 	=> $this->getSId()
 		);
 
 
