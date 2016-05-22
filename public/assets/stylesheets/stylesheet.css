@@ -5,11 +5,22 @@
 	margin-left: auto;
     margin-right: auto; 
 	background-color: white;
-	width: 60%;	
+	text-align: center;
 }
-.rankingtable td th{ 
+.rankingtable td th{
     border-bottom: 1px solid #ddd;
 	width: 33%;
+}
+
+/* template: newGame*/
+.usertable{
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	text-align: center;
+}
+.usertable td th{
+	border-bottom: 1px solid #ddd;
 }
 
 
@@ -20,12 +31,8 @@
 	margin-left: auto;
     margin-right: auto;
 	background-color: white;
-	width: 80%;
 	overflow : auto;
 }
-
-
-
 
 
 /* template: acutual Game */
@@ -34,6 +41,7 @@
 	border: 1px solid black;
 	margin-left: 0%; 
 	background-color: white;
+	text-align: center;
 }
 .gametable tr td, .gametable tr th{
 	border-collapse: collapse;
@@ -61,9 +69,6 @@
 .beenden input{
 	width: 100%;
 }
-
-
-
 
 /* template: layout */
 .layout {

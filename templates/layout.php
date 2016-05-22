@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE HTML>
 <html>
  <head>
+     <link rel="stylesheet" href="assets/stylesheets/stylesheet.css">
      <title>Kniffel</title>
      <meta charset="UTF-8">
-     <link rel="stylesheet" href="assets/stylesheets/stylesheet.css">
+
 
  </head>
  <body class="layout">

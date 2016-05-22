@@ -13,8 +13,7 @@
     
 
 
-    <div
-        style="border : double 2px #0000ff; background : #ffffff; color : #000000; width : 80%; height : 60%; overflow : auto; margin-left : 10%;">
+    <div>
         <!-- Liste mit den begonnenen Spielen -->
         <table class="filter">
             <colgroup>
@@ -65,12 +64,6 @@
                 </tr>
             <? endforeach ?>
             </tbody>
-
-            <tfoot>
-            <tr>
-                <td colspan="5">All rights reserved</td>
-            </tr>
-            </tfoot>
         </table>
 
     </div>

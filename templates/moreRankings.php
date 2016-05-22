@@ -7,18 +7,18 @@
 	<table class="rankingtable">
 		<thead>
 		<tr>
-			<th class="rankingtablehead">ID</th>
+			<th class="rankingtablehead">Platz</th>
 			<th class="rankingtablehead">User</th>
 			<th class="rankingtablehead">Anzahl der Siege</th>
 		</tr>
 		</thead>
 
 		<tbody>
-		<? if (!empty($WinListe)) foreach ($WinListe as $Wins) { ?>
+		<? if (!empty($WinListe)) for ($i = 0; i < 10; $i++) { ?>
 			<tr>				
-				<td><? print($Wins['ID']) ?></td>                
-				<td><? print($Wins['Username']) ?></td>
-				<td><? print($Wins['Anzahl']) ?></td>
+				<td><? print($i + 1 . ".") ?></td>                
+				<td><? print($WinListe[$i]['Username']) ?></td>
+				<td><? print($WinListe[$i]['Anzahl']) ?></td>
 			</tr>
 		<? } ?>
 		</tbody>
@@ -31,18 +31,18 @@
 	<table class="rankingtable">
 		<thead>
 		<tr>
-			<th class="rankingtablehead">ID</th>
+			<th class="rankingtablehead">Platz</th>
 			<th class="rankingtablehead">User</th>
 			<th class="rankingtablehead">Punkte</th>
 		</tr>
 		</thead>
 
 		<tbody>
-		<? if (!empty($PunkteListe)) foreach ($PunkteListe as $Punkte) { ?>
+		<? if (!empty($PunkteListe)) for ($i = 0; $i < 10; $i++) { ?>
 			<tr>				
-				<td><? print($Punkte['ID']) ?></td>                
-				<td><? print($Punkte['Username']) ?></td>
-				<td><? print($Punkte['Gesamtpunktzahl']) ?></td>
+				<td><? print($i + 1 . ".") ?></td>
+				<td><? print($PunkteListe[$i]['Username']) ?></td>
+				<td><? print($PunkteListe[$i]['Gesamtpunktzahl']) ?></td>
 			</tr>
 		<? } ?>
 		</tbody>

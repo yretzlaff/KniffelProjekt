@@ -384,7 +384,7 @@ class Spiel
 		$spielArr = array
 		(
 				spieler	=> $this->getAktuellerSpieler(),
-				s_id 	=> $this->getSId()[0][s_id]
+				s_id 	=> $this->getSId()[0]['s_id']
 		);
         print_r($spielArr);
 
@@ -402,7 +402,7 @@ class Spiel
 		$spielArr = array
 		(
 				runde	=> $this->getAktuelleRunde(),
-				s_id 	=> $this->getSId()[0][s_id]
+				s_id 	=> $this->getSId()[0]['s_id']
 		);
 
 

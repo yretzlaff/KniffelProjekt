@@ -16,18 +16,18 @@
 
         <thead>
         <tr>
-            <th class="rankingtablehead">ID</th>
+            <th class="rankingtablehead">Platz</th>
             <th class="rankingtablehead">User</th>
             <th class="rankingtablehead">Punkte</th>
         </tr>
         </thead>
 
         <tbody>
-        <? if (!empty($ScoreListe)) foreach ($ScoreListe as $Score) { ?>
+        <? if (!empty($ScoreListe)) for ($i = 0; $i < 10; $i++) { ?>
             <tr>
-                <td><? print($Score['ID']) ?></td>
-                <td><? print($Score['Username']) ?></td>
-                <td><? print($Score['spielerscore']) ?></td>
+                <td><? print(($i+1) . ".") ?></td>
+                <td><? print($ScoreListe[$i]['Username']) ?></td>
+                <td><? print($ScoreListe[$i]['spielerscore']) ?></td>
             </tr>
         <? } ?>
         </tbody>
