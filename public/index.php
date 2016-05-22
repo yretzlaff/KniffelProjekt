@@ -65,7 +65,7 @@ if (isset($_POST[nutzerVerwaltung])) {
 if (isset($_POST[login])) {
 	if (isset($_REQUEST['add_user'])) 
 	{
-		if (!SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+		if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 		{
 			//Benutzername bereist vergeben.
 			$template_data['fehler3'] = true;
@@ -85,7 +85,7 @@ if (isset($_POST[login])) {
 			$template_data['user'] = $_SESSION['user'];
 			Template::render('userEdit', $template_data);
 		} else {
-			if (SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+			if (SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 			{
 				//Benutzer nicht vorhanden.
 				$template_data['fehler2'] = true;
@@ -115,9 +115,19 @@ if (isset($_POST[namenAendern])) {
 
 //Verzweigung auf der Username ändern Seite mit den Buttons Bestätigen und Abbrechen
 if (isset($_POST[bestaetigenUsername])) {
+	if (!SESSION::nutzerNichtVorhanden($_REQUEST['neuerUsername']))
+	{
+		//Benutzername bereist vergeben.
+		$template_data['fehler3'] = true;
+		$template_data['user'] = $_SESSION['user'];
+		Template::render('changeUsername', $template_data);			
+	}
+	else
+	{
     Benutzer::changeUsername(Benutzer::getIdZuNamen($_SESSION['user']->getName()), $_REQUEST['neuerUsername']);
     $_SESSION['user']->setName($_REQUEST['neuerUsername']);
     Template::render('userEdit', $template_data);
+	}
 }
 
 //Verzweigung auf der Passwort ändern Seite mit den Buttons Bestätigen und Abbrechen
@@ -142,7 +152,7 @@ if (isset($_POST[abbrechen])) {
 if (isset($_POST[weiterer_spieler])) {
     if (!$_SESSION['Spiel']->istSpielVoll()) {
         if (isset($_REQUEST['add_user'])) {
-			if (!SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+			if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 			{
 				//Benutzername bereist vergeben.
 				$template_data['fehler3'] = true;
@@ -177,7 +187,7 @@ if (isset($_POST[weiterer_spieler])) {
                 Template::render('newGame', $template_data);
 				}
             } else {
-				if (SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+				if (SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 				{
 					//Benutzer nicht vorhanden.
 					$template_data['fehler2'] = true;
@@ -199,7 +209,7 @@ if (isset($_POST[weiterer_spieler])) {
     // neues Spiel -> "Spiel starten" Button
     if (isset($_POST[spiel_starten])) {
         if (isset($_REQUEST['add_user'])) {
-			if (!SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+			if (!SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 			{
 				//Benutzername bereist vergeben.
 				$template_data['fehler3'] = true;
@@ -259,7 +269,7 @@ if (isset($_POST[weiterer_spieler])) {
                     $template_data['Spiel'] = $_SESSION['Spiel'];
                     Template::render('actualGame', $template_data);
                 } else {
-					if (SESSION::nutzerNichtVorhanden($_REQUEST['username'], $_REQUEST['password']))
+					if (SESSION::nutzerNichtVorhanden($_REQUEST['username']))
 					{
 						//Benutzer nicht vorhanden.
 						$template_data['fehler2'] = true;

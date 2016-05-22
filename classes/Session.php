@@ -59,7 +59,7 @@ class Session {
     }
 	
 	
-	public static function nutzerNichtVorhanden($user, $password)
+	public static function nutzerNichtVorhanden($user)
     {
 		$stmt = Benutzer::usernameVorhanden($user);
 		
