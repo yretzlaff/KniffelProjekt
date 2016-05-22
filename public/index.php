@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Die index Klasse fungiert als Controller und dient der Abwicklung des Kontrollflusses.
+ * Es werden die entsprechenden Seiten aufgerufen.
+ */
+
 
 require_once '../config.php';
 
