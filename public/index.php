@@ -106,7 +106,7 @@ if (isset($_POST[login])) {
 		}
 	} else
 	{
-		//Neuer Nutzer erzeugen Haken ist nicht gesetzt. Es werden 
+		//Neuer Nutzer erzeugen Haken ist nicht gesetzt. Es werden die Nutzer-Daten abgefragt.
 		if (Session::check_credentials($_REQUEST['username'], $_REQUEST['password'])) {
 			$_SESSION['user'] = new Spieler(Benutzer::getIdZuNamen($_REQUEST['username']), $_REQUEST['username']);
 			$template_data['user'] = $_SESSION['user'];
@@ -392,6 +392,7 @@ if (isset($_POST[weiterer_spieler])) {
 
 
     }
+//Auf der Filter-Seite können Filter wieder entfernt werden.
 if (isset($_POST[filter_entfernen])) {
     $alleSpiele = Spiel::getSpielListe();
 
@@ -409,7 +410,7 @@ if (isset($_POST[filter_entfernen])) {
     Template::render('continueGameFilter', $template_data);
 }
 
-
+//Filter wird auf der Filterseite angewendet
 if (isset($_POST[filter_anwenden])) {
     //alle SPiele aus der Datenbank
     $alleSpiele = Spiel::getSpielListe();
@@ -592,6 +593,7 @@ if (!SESSION::gestartet() || empty($_POST)) {
     Template::render('start', $template_data);
 }
 
+//Würfeln auf der actualGame Seite
 if (isset($_POST[wuerfeln])) {
 
     $_SESSION['Spiel']->getWuerfelspiel()->wuerfeln();
@@ -600,6 +602,7 @@ if (isset($_POST[wuerfeln])) {
 
 }
 
+//Würfel auf die Bank und wieder zurück setzen.
 
 if (isset($_POST[wuerfel1])) {
     $_SESSION['Spiel']->getWuerfelspiel()->moveToBank(1);
