@@ -178,7 +178,7 @@
 			<tr>
 				<td>
 					</br></br></br></br></br></br>
-					<input type="submit" value="<? print("Würfel (" .  (WuerfelSpiel::ANZAHLVERSUCHE-$Spiel->getWuerfelspiel()->getGeworfen()) . " übrig)"); ?>" name="wuerfeln" id="wuerfeln" <?= $Spiel->istWuerfelbar() ?>></br></br>
+					<input type="submit" value="<? print("Würfeln (" .  (WuerfelSpiel::ANZAHLVERSUCHE-$Spiel->getWuerfelspiel()->getGeworfen()) . " übrig)"); ?>" name="wuerfeln" id="wuerfeln" <?= $Spiel->istWuerfelbar() ?>></br></br>
 					<? if(null !== $Spiel->getWuerfelspiel()->getBecher()[1] && null !== $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()) :?>
 					<button id="w1", name = "wuerfel1"<?= $Spiel->istBecherVerschiebbar(1) ?>>
 						<img src="<?if(null !== $Spiel->getWuerfelspiel()->getBecher()[1] && null !== $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()):print("../public/assets/images/dice_" . $Spiel->getWuerfelspiel()->getBecher()[1]->getWert()) . ".jpg";endif?>" alt="W">
