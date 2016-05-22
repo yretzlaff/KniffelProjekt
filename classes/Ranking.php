@@ -3,6 +3,9 @@
 class Ranking
 {
 
+	/*
+	Liefert die 10 Spieler mit den höchsten Spielerscores
+	*/
 	public static function getScoreListe()
 	{
         global $dbh;
@@ -17,6 +20,9 @@ class Ranking
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 	
+	/* 
+	Liefert die 10 Spieler mit den meisten Punkten in einem Spiel.
+	*/
 	public static function getPunkteListe()
 	{
         global $dbh;
@@ -32,14 +38,21 @@ class Ranking
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 	
+	/* 
+	Liefert die 10 Spieler mit den Meisten Siegen in Spielen mit mindestens 2 Spielern.
+	Die Spiele müssen beendet sein
+	*/
 	public static function getMeistenSiege()
 	{
         global $dbh;
-
+		
         $stmt = $dbh->prepare("SELECT C.U_id, E.Username, Count(C.s_id) As Anzahl
 							   From (Select A.s_id, B.sk_id, B.u_id
 									 From (SELECT s_id, MAX(summe_oben + summe_unten) AS Summe
-										   From spielkarte
+										   From spielkarte as o
+										   Where 1 <(SELECT COUNT(*)
+													 FROM spielkarte as s
+													 where o.s_id = s.s_id)
 										   GROUP by s_id
 										  ) AS A,
 										  spielkarte AS B

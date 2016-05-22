@@ -212,7 +212,7 @@
 	<div class="clear"></div>
 
 	<div class="beenden">
-		<input type="submit" name="spiel_beenden" value="Spiel beenden">
+		<input type="submit" name="spiel_beenden" value="<? if ($Spiel->getBeendet() == 1) {print("Spiel beenden");} else {print("Spiel unterbrechen");}?>">
 		</div>
 
 
